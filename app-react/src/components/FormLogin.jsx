@@ -1,10 +1,17 @@
+import { useState } from 'react'
 import logoPolicia from '../assets/Logo-PC.png'
 import olhoVisivel from '../assets/olho-aberto2.svg'
 import olhoInvisivel from '../assets/olho-fechado.svg'
 import './FormLogin.css'
 
-
 const FormLogin = () => {
+
+    const [eyerVisibel, setEyerVisibel] = useState(false)
+
+    const toggleEye = () => {
+        setEyerVisibel(!eyerVisibel)
+    }
+
     return (
         <div className='background'>
             <div className='div-image'>
@@ -18,14 +25,14 @@ const FormLogin = () => {
                         <label htmlFor="">RG</label>
                     </div>
                     <div className='input-group'>
-                        <input type="password" name="" id="input-senha"  required />
+                        <input type={eyerVisibel ? "text" : "password"} name="" id="input-senha"  required />
                         <label htmlFor="">SENHA</label>
-                        <img src={olhoVisivel} alt="" className='eye-icon ' />
+                        <img src={eyerVisibel ? olhoVisivel : olhoInvisivel} alt="" className='eye-icon' onClick={toggleEye} />
                     </div>
                     <a href="#">Esqueceu a Senha?</a>
                     <div className='button-group'>
                         <button type="submit">ENTRAR</button>
-                        <button>CADASTRAR</button>
+                        <button id='cadastro'>CADASTRAR</button>
                     </div>
                 </form>
             </div>
