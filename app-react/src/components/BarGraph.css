@@ -1,0 +1,40 @@
+.background-bar{
+    color: black;
+    border-radius: 20px;
+    box-shadow: 7px 10px 20px 1px rgba(0, 0, 0, 0.3);
+    width: 1000px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+}
+
+.legenda{
+    width: 400px;
+    height: 200px;
+}
+
+.linha{
+    border: solid 1px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    width: 250px;
+    margin-bottom: 15px;
+}
+
+.descricao{
+    margin-bottom: 1px;
+    display: flex;
+    align-items: center;
+}
+
+.descricao p{
+    font-weight: bold;
+}
+
+.legend-color {
+width: 16px;
+height: 16px;
+display: inline-block;
+border-radius: 4px;
+margin-right: 7px;
+}
+  

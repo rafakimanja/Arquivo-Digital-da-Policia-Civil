@@ -1,0 +1,75 @@
+
+.menu{
+	background-color: black;
+	height:92.7vh;
+	width: 240px;
+	position:fixed;
+	top: 73px;
+	left:0;
+	z-index:5;
+	outline: none;
+	
+    ul{
+        list-style:none;
+        padding:0.5em 0;
+        margin:0;
+        display: flex;
+        flex-direction: column; /* Exibe os itens em coluna, um abaixo do outro */
+        height: 100%;
+        
+        li{
+            padding:0.5em 1em 0.5em 3em;
+            font-size:0.95em;
+            font-weight:regular;
+            background-repeat:no-repeat;
+            background-position:left 15px center;
+            background-size:auto 20px;
+            transition:all 0.15s linear;
+            cursor:pointer;
+            margin-bottom: 10px;
+            
+            &.icon-home{
+                background-image:url("../assets/home_24dp_E8EAED_FILL0_wght200_GRAD0_opsz24.svg");
+                background-size: auto 26px;
+            }
+            &.icon-add{
+                background-image:url("../assets/add_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg");
+                background-size: auto 26px;
+            }
+            &.icon-search{
+                background-image:url("../assets/search_24dp_E8EAED_FILL0_wght200_GRAD0_opsz24.svg");
+                background-size: auto 26px;
+            }
+            &.icon-settings{
+                background-image:url("../assets/settings_24dp_E8EAED_FILL0_wght200_GRAD0_opsz24.svg");
+                background-size: auto 26px;
+            }
+            &.icon-users{
+                background-image:url("../assets/groups_24dp_E8EAED_FILL0_wght200_GRAD0_opsz24.svg");
+                background-size: auto 30px;
+            }
+            &.icon-exit{
+                background-image:url("../assets/logout_24dp_E8EAED_FILL0_wght200_GRAD0_opsz24.svg");
+                background-size: auto 26px;
+            }
+
+            &:hover{
+                background-color:rgba(0,0,0,0.1);
+            }
+            
+            &:focus{
+                outline:none;
+            }
+
+            span{
+                font-size: 18px;
+                font-weight: bold;
+                margin-left: 12px;
+            }
+        }
+    }
+
+    #exit{
+        margin-top: auto;
+    }
+}

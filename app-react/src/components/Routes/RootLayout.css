@@ -1,0 +1,25 @@
+/* Estrutura principal */
+.main-container {
+    display: flex;
+    height: 100vh; /* Ocupa toda a altura da viewport */
+    width: 100vw; /* Ocupa toda a largura da viewport */
+    margin: 0;
+    padding: 0;
+}
+
+/* Conteúdo principal */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.page-content {
+    flex: 1;
+    padding: 20px; /* Adicione padding ou outros estilos conforme necessário */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+

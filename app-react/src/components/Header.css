@@ -1,0 +1,24 @@
+.header {
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    top: 0;
+    background-color: black;
+    color: #fff;
+}
+
+.header, p, img{
+    display: flex;
+    align-items: center;
+}
+
+.header p {
+    margin-left: auto; /* Empurra o texto e o ícone para a direita */
+    font-size: 20px;
+}
+
+.header img {
+    margin-left: 10px; /* Espaçamento entre o texto e o ícone */
+    margin-right: 35px;
+    height: 40px;
+}

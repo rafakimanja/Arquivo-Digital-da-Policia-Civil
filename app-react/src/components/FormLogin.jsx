@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import logoPolicia from '../assets/Logo-PC.png'
 import olhoVisivel from '../assets/olho-aberto2.svg'
 import olhoInvisivel from '../assets/olho-fechado.svg'
@@ -6,10 +7,15 @@ import './FormLogin.css'
 
 const FormLogin = () => {
 
+    const navigate = useNavigate()
     const [eyerVisibel, setEyerVisibel] = useState(false)
 
     const toggleEye = () => {
         setEyerVisibel(!eyerVisibel)
+    }
+
+    const handleLogin = () => {
+        return navigate("/index")
     }
 
     return (
@@ -31,7 +37,7 @@ const FormLogin = () => {
                     </div>
                     <a href="#">Esqueceu a Senha?</a>
                     <div className='button-group'>
-                        <button type="submit">ENTRAR</button>
+                        <button type="submit" onClick={handleLogin} >ENTRAR</button>
                         <button id='cadastro'>CADASTRAR</button>
                     </div>
                 </form>
