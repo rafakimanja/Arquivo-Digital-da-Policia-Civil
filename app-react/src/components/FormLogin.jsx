@@ -5,17 +5,36 @@ import olhoVisivel from '../assets/olho-aberto2.svg'
 import olhoInvisivel from '../assets/olho-fechado.svg'
 import './FormLogin.css'
 
-const FormLogin = () => {
+const FormLogin = ({login, userLog}) => {
 
     const navigate = useNavigate()
     const [eyerVisibel, setEyerVisibel] = useState(false)
+    const [inputRG, setInputRG] = useState("")
+    const [inputSenha, setInputSenha] = useState("")
 
     const toggleEye = () => {
         setEyerVisibel(!eyerVisibel)
     }
 
-    const handleLogin = () => {
-        return navigate("/index")
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const usuario  = login(inputRG, inputSenha)
+        if (usuario != undefined) {
+            userLog.current = usuario
+            navigate("/index")
+        }else{
+            console.log("login recusado!")
+        }
+        setInputSenha("")
+        setInputRG("")
+    }
+
+    const handleInputRGChange = e => {
+        setInputRG(e.target.value)
+    }
+
+    const handleInputSenhaChange = e => {
+        setInputSenha(e.target.value)
     }
 
     return (
@@ -27,17 +46,17 @@ const FormLogin = () => {
                 <h2>Login</h2>
                 <form action="#" method="post">
                     <div className='input-group'>
-                        <input type="text" name="" id=""  required/>
+                        <input type="text" name="" id="" value={inputRG} onChange={handleInputRGChange}  required/>
                         <label htmlFor="">RG</label>
                     </div>
                     <div className='input-group'>
-                        <input type={eyerVisibel ? "text" : "password"} name="" id="input-senha"  required />
+                        <input type={eyerVisibel ? "text" : "password"} name="" id="input-senha" value={inputSenha} onChange={handleInputSenhaChange}  required />
                         <label htmlFor="">SENHA</label>
                         <img src={eyerVisibel ? olhoVisivel : olhoInvisivel} alt="" className='eye-icon' onClick={toggleEye} />
                     </div>
                     <a href="#">Esqueceu a Senha?</a>
                     <div className='button-group'>
-                        <button type="submit" onClick={handleLogin} >ENTRAR</button>
+                        <button type="submit" onClick={handleLogin}>ENTRAR</button>
                         <button id='cadastro'>CADASTRAR</button>
                     </div>
                 </form>

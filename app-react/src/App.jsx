@@ -5,20 +5,43 @@ import Arquivos from './components/Arquivos'
 import RootLayout from './components/Routes/RootLayout'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ErrorPage from './components/Routes/ErrorPage'
+import { useRef } from 'react'
 
-const router = createBrowserRouter([
+const usuarios = [
+  {
+    nome: 'admin',
+    rg: 'admin',
+    senha: 'admin',
+    superuser: true
+  },
+  {
+    nome: 'rafael',
+    rg: '54321',
+    senha: '1234',
+    superuser: false
+  }
+]
+
+const login = (rg, senha) => {
+  let usuario = usuarios.find((user) => {
+    return user.rg === rg && user.senha === senha
+  })
+  return usuario
+}
+
+const router = (userLog) => createBrowserRouter([
   {
     path: "/",
-    element: <FormLogin/>
+    element: <FormLogin login={login} userLog={userLog} />
   },
   {
     path: "/index",
-    element: <RootLayout/>,
+    element: <RootLayout userLog={userLog} />,
     errorElement: <ErrorPage/>,
     children: [
       {
         path: "",
-        element: <MainPage/>
+        element: <MainPage userLog={userLog} />
       },
       {
         path: "arquivos",
@@ -28,30 +51,13 @@ const router = createBrowserRouter([
   },
 ])
 
-const usuarios = [
-  {
-    nome: 'admin',
-    senha: 'admin',
-    superuser: true
-  },
-  {
-    nome: 'rafael',
-    senha: '1234',
-    superuser: false
-  }
-]
-
-const login = (usuario) => {
-  usuarios.filter((user) => {
-      return ((user.nome == usuario.nome) && (user.senha == usuario.senha))
-  })
-}
-
 function App() {
+
+  const userLog = useRef()
 
   return (
     <>
-      <RouterProvider router={router}/>
+      <RouterProvider router={router(userLog)}/>
     </>
   )
 }

@@ -1,15 +1,15 @@
 import { Outlet } from "react-router-dom";
-import SidebarMenu from "../SidebarMenu";
-import Header from "../Header";
+import SidebarMenu from "../sidebar/SidebarMenu";
+import Header from "../Header/Header";
 import './RootLayout.css'
 
-const RootLayout = () => {
+const RootLayout = ({userLog}) => {
     return (
         <>
             <div className="main-container">
-                <SidebarMenu/>
+                <SidebarMenu userLog={userLog} />
                 <div className="main-content">
-                    <Header/>
+                    <Header userLog={userLog} />
                     <div className="page-content">
                         <Outlet/>
                     </div>

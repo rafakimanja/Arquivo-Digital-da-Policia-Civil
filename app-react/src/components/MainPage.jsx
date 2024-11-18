@@ -1,8 +1,8 @@
-import Contents from "../components/Contents"
+import Contents from "./Index/Contents"
 
-const MainPage = () => {
+const MainPage = ({userLog}) => {
     return(
-        <Contents/>
+        <Contents userLog={userLog} />
     )
 }
 

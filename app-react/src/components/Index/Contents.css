@@ -1,10 +1,18 @@
-.spaces{
+.spaces-admin{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 70%;
     height: 800px;
+}
+
+.spaces{
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    width: 50%;
+    height: 700px;
 }
 
 .top-containers{
