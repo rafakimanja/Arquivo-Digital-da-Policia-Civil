@@ -4,7 +4,7 @@ import './Header.css'
 const Header = ({userLog}) => {
     return(
     <div className="header">
-        <p>{userLog.current.nome}</p>
+        <p>{userLog.nome}</p>
         <img src={usuario} alt=""/>
     </div>
 )

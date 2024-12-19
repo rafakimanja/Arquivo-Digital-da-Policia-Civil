@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import logoPolicia from '../assets/Logo-PC.png'
-import olhoVisivel from '../assets/olho-aberto2.svg'
-import olhoInvisivel from '../assets/olho-fechado.svg'
+import logoPolicia from '../../assets/Logo-PC.png'
+import olhoVisivel from '../../assets/olho-aberto2.svg'
+import olhoInvisivel from '../../assets/olho-fechado.svg'
 import './FormLogin.css'
 
-const FormLogin = ({login, userLog}) => {
+const FormLogin = ({login, setUserLog}) => {
 
     const navigate = useNavigate()
     const [eyerVisibel, setEyerVisibel] = useState(false)
@@ -16,15 +16,16 @@ const FormLogin = ({login, userLog}) => {
         setEyerVisibel(!eyerVisibel)
     }
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        const usuario  = login(inputRG, inputSenha)
+    const handleLogin = () => {
+
+        const usuario = login(inputRG, inputSenha)
+
         if (usuario != undefined) {
-            userLog.current = usuario
+            console.log(usuario)
+            setUserLog(usuario)
             navigate("/index")
-        }else{
-            console.log("login recusado!")
-        }
+        }else alert("Login Invalido!")
+
         setInputSenha("")
         setInputRG("")
     }

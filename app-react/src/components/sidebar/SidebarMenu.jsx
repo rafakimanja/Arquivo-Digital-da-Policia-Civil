@@ -9,9 +9,9 @@ const SidebarMenu = ({userLog}) => {
                 <li className="icon-home"><Link to={"/index"}><span>Home</span></Link></li>
                 <li className="icon-settings"><span>Configurações</span></li>
                 { 
-                    userLog.current?.superuser ? (
+                    userLog.superuser ? (
                         <>
-                            <li className="icon-add"><span>Adicionar</span></li>
+                            <li className="icon-add"><Link to={"/index/form"}><span>Adicionar</span></Link></li>
                             <li className="icon-search"><Link to={"/index/arquivos"}><span>Pesquisar</span></Link></li>
                             <li className="icon-users"><span>Usuários Cad.</span></li> 
                         </>
