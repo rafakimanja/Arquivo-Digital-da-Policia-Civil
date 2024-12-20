@@ -7,7 +7,7 @@ const SidebarMenu = ({userLog}) => {
         <nav className="menu">
             <ul>
                 <li className="icon-home"><Link to={"/index"}><span>Home</span></Link></li>
-                <li className="icon-settings"><span>Configurações</span></li>
+                <li className="icon-settings"><Link to={"/index/config"}><span>Configurações</span></Link></li>
                 { 
                     userLog.superuser ? (
                         <>

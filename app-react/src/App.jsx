@@ -4,8 +4,9 @@ import MainPage from './components/MainPage'
 import Arquivos from './components/Arquivos'
 import RootLayout from './components/Routes/RootLayout'
 import FormArquivo from './components/Forms/FormArquivo'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import ErrorPage from './components/Routes/ErrorPage'
+import Configuracoes from './components/Config/Configuracoes'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { useState } from 'react'
 
 const usuarios = [
@@ -55,6 +56,10 @@ function App() {
         {
           path: "form",
           element: <FormArquivo/>
+        },
+        {
+          path: "config",
+          element: <Configuracoes/>
         }
       ]
     },

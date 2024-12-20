@@ -21,7 +21,6 @@ const FormLogin = ({login, setUserLog}) => {
         const usuario = login(inputRG, inputSenha)
 
         if (usuario != undefined) {
-            console.log(usuario)
             setUserLog(usuario)
             navigate("/index")
         }else alert("Login Invalido!")

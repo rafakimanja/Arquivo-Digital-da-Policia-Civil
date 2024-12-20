@@ -21,7 +21,7 @@ const Contents = ({userLog}) => {
                 </div>
             ) : (
                 <div className="spaces">
-                    <Space contend={"Adicionar Arquivo"} img={"add"} />
+                    <Link to={"/index/form"}><Space contend={"Adicionar Arquivo"} img={"add"} /></Link>
                     <Link to={"/index/arquivos"}><Space contend={"Buscar Arquivo"} img={"search"} /></Link>
                 </div>
             )
