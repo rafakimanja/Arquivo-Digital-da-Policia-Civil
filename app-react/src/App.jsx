@@ -1,7 +1,7 @@
 import './App.css'
 import FormLogin from './components/Forms/FormLogin'
 import MainPage from './components/MainPage'
-import Arquivos from './components/Arquivos'
+import Arquivos from './components/Arquivos/Arquivos'
 import RootLayout from './components/Routes/RootLayout'
 import FormArquivo from './components/Forms/FormArquivo'
 import ErrorPage from './components/Routes/ErrorPage'
