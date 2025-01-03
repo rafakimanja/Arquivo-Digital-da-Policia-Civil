@@ -1,0 +1,66 @@
+
+#documentos {
+    border-collapse: collapse;
+    width: 100%;
+    color: black;
+  }
+
+  #documentos td {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 8px;
+    text-align: center;
+  }
+  
+  #documentos tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #documentos tr:hover {background-color: #ddd;}
+  
+  #documentos th {
+    border: 1px solid #fff;
+    padding: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: black;
+    color: white;
+    text-align: center;
+  }
+
+#documentos th:first-child,
+#documentos td:first-child {
+    text-align: left;
+}
+
+.botoes-tabela{
+    display: flex;
+    justify-content: space-evenly;
+    width: 60%;
+    margin-left: 25%;
+}
+
+.botoes-tabela button {
+    border: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#button-baixar{
+    background-color: #81C163;
+}
+
+#button-baixar:hover{
+    background-color: #5f9247;
+}
+
+#button-excluir{
+    background-color: #ED4C40;
+}
+
+#button-excluir:hover{
+    background-color: #af342b;
+}
