@@ -6,6 +6,8 @@ const FormArquivo = () => {
 
     const [nomeArq, setNomeArq] = useState('')
     const [tipoArq, setTipoArq] = useState('')
+    const [anoArq, setAnoArq] = useState('')
+    const [arq, setArq] = useState(null)
 
     const handleNomeChange = e => {
         setNomeArq(e.target.value)
@@ -13,6 +15,14 @@ const FormArquivo = () => {
 
     const handleTipoChange = e => {
         setTipoArq(e.target.value)
+    }
+
+    const handleAnoChange = e => {
+        setAnoArq(e.target.value)
+    }
+
+    const handleArqChange = e => {
+        setArq(e.target.files[0])
     }
 
     const handleFormArq = () => {
@@ -28,6 +38,10 @@ const FormArquivo = () => {
                 <input type="text" name="" id="" placeholder="Nome do Arquivo" value={nomeArq} onChange={handleNomeChange} />
             </div>
             <div className="input-form">
+                <label htmlFor="">Ano:</label>
+                <input type="text" name="" id="input-ano" placeholder='Informe o ano' value={anoArq} onChange={handleAnoChange} />
+            </div>
+            <div className="input-form">
                 <label htmlFor="">Tipo de Arquivo:</label>
                 <select name="" id="" value={tipoArq} onChange={handleTipoChange} >
                     <option value="">Escolha</option>
@@ -40,7 +54,8 @@ const FormArquivo = () => {
             </div>
             <div className="input-form">
                 <label htmlFor="arquivo" className='label-busca'>Buscar</label>
-                <input type="file" name="arquivo" id="arquivo"/>
+                <input type="file" name="arquivo" id="arquivo" onChange={handleArqChange} />
+                <span>Arquivos Selecionados: {arq ? arq.name : "Nenhum arquivo selecionado"}</span>
             </div>
             <div className="buttons-form">
                 <button className="salvar" onClick={handleFormArq}>Salvar</button>

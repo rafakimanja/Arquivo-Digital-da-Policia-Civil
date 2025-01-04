@@ -39,6 +39,10 @@
     margin-top: 10px;
 }
 
+.input-form #input-ano{
+    width: 125px;
+}
+
 .input-form select{
     width: 260px;
     height: 40px;
