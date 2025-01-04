@@ -6,6 +6,7 @@ import RootLayout from './components/Routes/RootLayout'
 import FormArquivo from './components/Forms/FormArquivo'
 import ErrorPage from './components/Routes/ErrorPage'
 import Configuracoes from './components/Config/Configuracoes'
+import Usuarios from './components/Usuarios/Usuarios'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -60,6 +61,10 @@ function App() {
         {
           path: "config",
           element: <Configuracoes/>
+        },
+        {
+          path: "users",
+          element: <Usuarios/>
         }
       ]
     },

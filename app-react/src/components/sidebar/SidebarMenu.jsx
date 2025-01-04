@@ -13,7 +13,7 @@ const SidebarMenu = ({userLog}) => {
                         <>
                             <li className="icon-add"><Link to={"/index/form"}><span>Adicionar</span></Link></li>
                             <li className="icon-search"><Link to={"/index/arquivos"}><span>Pesquisar</span></Link></li>
-                            <li className="icon-users"><span>Usuários Cad.</span></li> 
+                            <li className="icon-users"><Link to={"/index/users"}><span>Usuários Cad.</span></Link></li> 
                         </>
                     ) : null
                 }
