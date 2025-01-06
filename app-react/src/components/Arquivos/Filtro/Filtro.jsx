@@ -5,8 +5,8 @@ import lupa from '../../../assets/search_24dp.svg'
 const Filtro = () => {
 
     const [categoria, setCategoria] = useState('')
-    const [ano, setAno] = ('')
-    const [nome, setNome] = ('')
+    const [ano, setAno] = useState('')
+    const [nome, setNome] = useState('')
     
     const handleInputCategoria = e => {
         setCategoria(e.target.valeu)
@@ -18,6 +18,15 @@ const Filtro = () => {
     
     const handleInputNome = e => {
         setNome(e.target.value)
+    }
+
+    const handleFltroArq = () => {
+        const regex = new RegExp('^[0-9]{4}$')
+        if(regex.test(ano)){
+            alert(ano)
+        }else{
+            alert('Informe um ano valido')
+        }
     }
 
     return(
@@ -42,7 +51,10 @@ const Filtro = () => {
                     <input type="text" name="" id="" value={nome} onChange={handleInputNome} placeholder='Digite o nome'/>
                 </div>
                 <div className="button-pesquisa">
-                    <button>Pesquisar <img src={lupa} alt="" /></button>
+                    <button onClick={() => (
+                        handleFltroArq(),
+                        setAno('')
+                    )}>Pesquisar <img src={lupa} alt="" /></button>
                 </div>
         </div>
     )

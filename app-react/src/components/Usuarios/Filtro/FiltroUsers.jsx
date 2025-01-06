@@ -1,5 +1,6 @@
 import { useState } from "react";
 import lupa from '../../../assets/search_24dp.svg'
+import './FiltroUsers.css'
 
 const FiltroUsers = () => {
 

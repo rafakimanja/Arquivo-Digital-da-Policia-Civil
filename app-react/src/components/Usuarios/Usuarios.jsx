@@ -1,4 +1,5 @@
 import FiltroUsers from "./Filtro/FiltroUsers"
+import './Usuarios.css'
 
 const Usuarios = () => {
     return(

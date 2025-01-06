@@ -26,7 +26,12 @@ const FormArquivo = () => {
     }
 
     const handleFormArq = () => {
-        
+        const regex = new RegExp('^[0-9]{4}$')
+        if(regex.test(anoArq)){
+            alert(anoArq)
+        }else{
+            alert('Informe um ano valido')
+        }
     }
 
     return(
@@ -58,7 +63,10 @@ const FormArquivo = () => {
                 <span>Arquivos Selecionados: {arq ? arq.name : "Nenhum arquivo selecionado"}</span>
             </div>
             <div className="buttons-form">
-                <button className="salvar" onClick={handleFormArq}>Salvar</button>
+                <button className="salvar" onClick={() => (
+                    handleFormArq(),
+                    setAnoArq('')
+                    )}>Salvar</button>
                 <Link to={"/index"}><button className="cancelar">Cancelar</button></Link>
             </div>
         </div>
