@@ -1,5 +1,6 @@
 
 #documentos {
+    margin: auto;
     border-collapse: collapse;
     width: 100%;
     color: black;
@@ -34,7 +35,7 @@
 .botoes-tabela{
     display: flex;
     justify-content: space-evenly;
-    width: 60%;
+    width: 80px;
     margin-left: 25%;
 }
 
@@ -63,4 +64,12 @@
 
 #button-excluir:hover{
     background-color: #af342b;
+}
+
+#button-editar{
+    background-color: #D7C11B;
+}
+
+#button-editar:hover{
+    background-color: #aa9a23;
 }

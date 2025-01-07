@@ -7,6 +7,7 @@ import FormArquivo from './components/Forms/FormArquivo'
 import ErrorPage from './components/Routes/ErrorPage'
 import Configuracoes from './components/Config/Configuracoes'
 import Usuarios from './components/Usuarios/Usuarios'
+import FormUsers from './components/Forms/FormUsers'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -47,7 +48,7 @@ function App() {
       errorElement: <ErrorPage/>,
       children: [
         {
-          path: "",
+          index: true,
           element: <MainPage userLog={userLog} />
         },
         {
@@ -64,7 +65,16 @@ function App() {
         },
         {
           path: "users",
-          element: <Usuarios/>
+          children: [
+            {
+              index: true, 
+              element: <Usuarios/>
+            },
+            {
+              path: "formUser",
+              element: <FormUsers/>
+            }
+          ]
         }
       ]
     },

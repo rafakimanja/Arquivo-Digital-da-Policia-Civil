@@ -1,5 +1,15 @@
 
 .background-usuarios{
-    background-color: tomato;
     width: 1060px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 7px 10px 20px 1px rgba(0, 0, 0, 0.3);
+}
+
+.lista-usuarios{
+    display: flex;
+    height: 300px;
+    width: 90%;
 }

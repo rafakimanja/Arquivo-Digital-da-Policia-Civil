@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import lupa from '../../../assets/search_24dp.svg'
 import './FiltroUsers.css'
 
@@ -14,7 +15,7 @@ const FiltroUsers = () => {
        <div className="background-filtroUsers">
             <input type="text" name="" id="" value={userName} onChange={handleInputNameUser} placeholder="Pesquisar nome usuario"/>
             <button className="search-button">Buscar <img src={lupa} alt=""/></button>
-            <button className="add-button">Adicionar</button>
+            <Link to={"formUser"}><button className="add-button">Adicionar</button></Link>
        </div>
     )
 }

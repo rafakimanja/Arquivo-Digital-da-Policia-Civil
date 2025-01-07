@@ -1,10 +1,12 @@
 
 .background-filtroUsers{
-    width: 100%;
+    width: 90%;
     height: 90px;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.15);
+    margin-top: 15px;
 }
 
 .background-filtroUsers input[type=text]{
