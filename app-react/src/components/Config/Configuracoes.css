@@ -30,7 +30,7 @@
     font-weight: bold;
 }
 
-#input-text-config, #select-config{
+.input-config input, .input-config select{
     margin-left: auto;
 }
 

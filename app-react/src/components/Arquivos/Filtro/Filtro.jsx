@@ -21,12 +21,34 @@ const Filtro = () => {
     }
 
     const handleFltroArq = () => {
-        const regex = new RegExp('^[0-9]{4}$')
-        if(regex.test(ano)){
-            alert(ano)
+
+        const filtro = {}
+
+        if(categoria != ''){
+            filtro.categoria = categoria
         }else{
-            alert('Informe um ano valido')
+            filtro.categoria = ""
         }
+
+        if(ano != ''){
+            const regex = new RegExp('^[0-9]{4}$')
+
+            if(!regex.test(ano)){
+                alert('Informe um ano valido')
+                return
+            }
+            filtro.ano = ano
+        }else{
+            filtro.ano = ""
+        }
+
+        if(nome != ''){
+            filtro.nome = nome
+        }else{
+            filtro.nome = ""
+        }
+
+        alert(JSON.stringify(filtro))
     }
 
     return(
@@ -53,7 +75,9 @@ const Filtro = () => {
                 <div className="button-pesquisa">
                     <button onClick={() => (
                         handleFltroArq(),
-                        setAno('')
+                        setCategoria(''),
+                        setAno(''),
+                        setNome('')
                     )}>Pesquisar <img src={lupa} alt="" /></button>
                 </div>
         </div>

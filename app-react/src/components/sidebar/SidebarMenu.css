@@ -73,3 +73,13 @@
         margin-top: auto;
     }
 }
+
+.sidebar-link:link{
+    text-decoration: none;
+    color: white;
+}
+
+.sidebar-link:visited{
+    text-decoration: none;
+    color: white;
+}
