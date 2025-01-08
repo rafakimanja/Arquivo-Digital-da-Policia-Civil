@@ -8,7 +8,7 @@ const Contents = ({userLog}) => {
     return(
         <>
         { 
-            userLog.superuser ? (
+            userLog.admin ? (
                 <div className="spaces-admin">
                     <div className="top-containers">
                         <Space contend={"Adicionar Arquivo"} img={"add"} />

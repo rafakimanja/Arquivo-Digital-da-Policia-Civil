@@ -16,13 +16,19 @@ const usuarios = [
     nome: 'admin',
     rg: 'admin',
     senha: 'admin',
-    superuser: true
+    admin: true
   },
   {
-    nome: 'rafael',
+    nome: 'rafael-lopes',
     rg: '54321',
     senha: '1234',
-    superuser: false
+    admin: false
+  },
+  {
+    nome: 'tuilara-lavarda',
+    rg: '7053688417',
+    senha: 'Juma@2024',
+    admin: false
   }
 ]
 
@@ -68,7 +74,7 @@ function App() {
           children: [
             {
               index: true, 
-              element: <Usuarios/>
+              element: <Usuarios usuarios={usuarios}/>
             },
             {
               path: "formUser",

@@ -2,7 +2,7 @@ import FiltroUsers from "./Filtro/FiltroUsers"
 import Tabela from "../Tabela/Tabela"
 import './Usuarios.css'
 
-const Usuarios = () => {
+const Usuarios = ({usuarios}) => {
 
     const colunas = [
         {
@@ -15,26 +15,11 @@ const Usuarios = () => {
         }
     ]
 
-    const dados = [
-        {
-            nome: 'Del. João Henrique',
-            admin: 'sim'
-        },
-        {
-            nome: 'Tuilara-lavarda',
-            admin: 'não'
-        },
-        {
-            nome: 'Suanemax-amaral',
-            admin: 'não'
-        }
-    ]
-
     return(
         <div className="background-usuarios">
             <FiltroUsers/>
            <div className="lista-usuarios">
-                <Tabela dados={dados} colunas={colunas} isDoc={false}/>
+                <Tabela dados={usuarios} colunas={colunas} isDoc={false}/>
            </div>
         </div>
     )

@@ -40,7 +40,7 @@ const Tabela = ({colunas, dados, isDoc}) => {
                         <tr key={infoIndex}>
                             {
                                 colunas.map((coluna) => (
-                                    <td key={coluna.accessor}>{info[coluna.accessor]}</td>
+                                    <td key={coluna.accessor}>{coluna.accessor == 'admin' ? info[coluna.accessor] ? 'sim' : 'não' : info[coluna.accessor]}</td>
                                 ))
                             }
                             <td>

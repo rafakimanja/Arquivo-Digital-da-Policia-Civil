@@ -9,7 +9,7 @@ const Filtro = () => {
     const [nome, setNome] = useState('')
     
     const handleInputCategoria = e => {
-        setCategoria(e.target.valeu)
+        setCategoria(e.target.value)
     }
     
     const handleInputAno = e => {
@@ -17,18 +17,11 @@ const Filtro = () => {
     }
     
     const handleInputNome = e => {
-        setNome(e.target.value)
+        let nome = e.target.value
+        setNome(nome.trim())
     }
 
     const handleFltroArq = () => {
-
-        const filtro = {}
-
-        if(categoria != ''){
-            filtro.categoria = categoria
-        }else{
-            filtro.categoria = ""
-        }
 
         if(ano != ''){
             const regex = new RegExp('^[0-9]{4}$')
@@ -37,18 +30,12 @@ const Filtro = () => {
                 alert('Informe um ano valido')
                 return
             }
-            filtro.ano = ano
-        }else{
-            filtro.ano = ""
         }
 
-        if(nome != ''){
-            filtro.nome = nome
-        }else{
-            filtro.nome = ""
-        }
-
-        alert(JSON.stringify(filtro))
+        const filtro = {}
+        filtro.nome = nome
+        filtro.ano = ano
+        filtro.categoria = categoria
     }
 
     return(
@@ -60,7 +47,7 @@ const Filtro = () => {
                         <option value="IP">IP</option>
                         <option value="TC">TC</option>
                         <option value="PAI">PAI</option>
-                        <option value="CART PREC">Carta Precatoria</option>
+                        <option value="Carta Precatoria">Cart Prec</option>
                         <option value="Outro">Outro</option>
                     </select>
                 </div>

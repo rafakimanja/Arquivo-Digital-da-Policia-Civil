@@ -10,7 +10,8 @@ const FormArquivo = () => {
     const [arq, setArq] = useState(null)
 
     const handleNomeChange = e => {
-        setNomeArq(e.target.value)
+        let nome = e.target.value
+        setNomeArq(nome.trim())
     }
 
     const handleTipoChange = e => {
@@ -22,7 +23,12 @@ const FormArquivo = () => {
     }
 
     const handleArqChange = e => {
-        setArq(e.target.files[0])
+        let arquivo = e.target.files[0]
+        if(arquivo.size > 10_485_760){
+            alert('Tamanho de maximo de arquivo ultrapassado! Limite de 10Mb')
+        }else{
+            setArq(arquivo)
+        }
     }
 
     const handleFormArq = () => {
@@ -69,14 +75,14 @@ const FormArquivo = () => {
                     <option value="IP">IP</option>
                     <option value="Tc">TC</option>
                     <option value="PAI">PAI</option>
-                    <option value="Cartorio Distribuidor">Cart Prec</option>
+                    <option value="Carta Precatoria">Cart Prec</option>
                     <option value="Outro">Outro</option>
                 </select>
             </div>
             <div className="input-form">
                 <label htmlFor="arquivo" className='label-busca'>Buscar</label>
                 <input type="file" name="arquivo" id="arquivo" onChange={handleArqChange} />
-                <span>Arquivos Selecionados: {arq ? arq.name : "Nenhum arquivo selecionado"}</span>
+                <span>{arq ? arq.name : ''}</span>
             </div>
             <div className="buttons-form">
                 <button className="salvar" onClick={() => (

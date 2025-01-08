@@ -10,7 +10,8 @@ const FormUsers = () => {
     const [adminUser, setAdminUser] = useState(false)
 
     const handleNomeChange = e => {
-        setNomeUser(e.target.value)
+        let nome = e.target.value
+        setNomeUser(nome.trim())
     }
 
     const handleSenhaChange = e => {
@@ -22,7 +23,38 @@ const FormUsers = () => {
     }
 
     const handleAdminChange = e => {
-        setAdminUser(e.target.value)
+        setAdminUser(e.target.checked)
+    }
+
+    const handleSubmitForm = () => {
+
+        if(nomeUser === ''){
+            alert('Informe o nome do usuario!')
+            return
+        }
+
+        if(senhaUser === ''){
+            alert('Informe a senha!')
+            return
+        }
+
+        if(confirmSenhaUser === ''){
+            alert('Informe a senha novamente!')
+            return
+        }
+
+        if(senhaUser != confirmSenhaUser){
+            alert('As senhas não coincidem')
+            return
+        }
+
+        const usuario = {
+            nome: nomeUser,
+            senha: senhaUser,
+            admin: adminUser
+        }
+
+        alert(JSON.stringify(usuario))
     }
 
     return(
@@ -43,10 +75,18 @@ const FormUsers = () => {
                     </div>
                     <div className="input-form" id='input-checkbox'>
                         <label htmlFor="">Admin:</label>
-                        <input type="checkbox" name="" id="" value={adminUser} onChange={handleAdminChange} />
+                        {
+                            !adminUser ? <input type="checkbox" name="" id="" value={adminUser} onChange={handleAdminChange} /> : <input type="checkbox" name="" id="" value={adminUser} onChange={handleAdminChange} checked />
+                        }
                     </div>
                     <div className="buttons-form">
-                        <button className="salvar">Salvar</button>
+                        <button className="salvar" onClick={() => (
+                            handleSubmitForm(),
+                            setNomeUser(''),
+                            setSenhaUser(''),
+                            setConfirmSenhaUser(''),
+                            setAdminUser(false)
+                        )} >Salvar</button>
                         <Link to={"/index/users"} ><button className='cancelar'>Cancelar</button></Link>
                     </div>
                 </div>
