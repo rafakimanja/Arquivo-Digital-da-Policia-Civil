@@ -10,13 +10,18 @@ const Contents = ({userLog}) => {
         { 
             userLog.admin ? (
                 <div className="spaces-admin">
-                    <div className="top-containers">
+                    {/* <div className="top-containers">
                         <Space contend={"Adicionar Arquivo"} img={"add"} />
                         <Space contend={"Buscar Arquivo"} img={"search"} />
                         <PieGraph/>
+                    </div> */}
+                    <div className="top-containers">
+                        <Space contend={"Em Desenvolvimento!"} img={"warning"} />
+                        <Space contend={"Em Desenvolvimento!"} img={"warning"} />
+                        <Space contend={"Em Desenvolvimento!"} img={"warning"} />
                     </div>
                     <div className="bottom-containers">
-                        <BarGraph/>
+                        <Space contend={"Em Desenvolvimento!"} img={"warning"} />
                     </div>
                 </div>
             ) : (
