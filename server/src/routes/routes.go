@@ -11,7 +11,7 @@ func HandleRequest() {
 	r := gin.Default()
 	r.GET("/", controllers.Hello)
 	r.POST("/login", controllers.LoginAcess)
-	grupo := r.Group("/index", middlewares.BasicMiddleware)
+	grupo := r.Group("/index", middlewares.AuthMiddleware)
 	{
 		grupo.GET("/documentos", controllers.ExibeTodosDocumentos)
 		grupo.GET("/usuarios", controllers.ExibeTodosUsuarios)
