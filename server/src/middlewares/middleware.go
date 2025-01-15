@@ -3,12 +3,12 @@ package middlewares
 import (
 	"adpc/src/services"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
-
-const JWT_KEY_SIGNING = "meutokenjwt"
 
 func AuthMiddleware(c *gin.Context){
 
@@ -33,7 +33,15 @@ func AuthMiddleware(c *gin.Context){
 
 	token := parts[1]
 
-	jwt := services.JwtToken{SigningKey: JWT_KEY_SIGNING}
+	err := godotenv.Load()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Erro interno do servidor middleware",
+		})
+		return
+	}
+
+	jwt := services.JwtToken{SigningKey: os.Getenv("JWT_KEY_SIGNING")}
 
 	if !jwt.VerifyToken(token) {
 		c.JSON(http.StatusUnauthorized, gin.H{

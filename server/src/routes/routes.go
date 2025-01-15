@@ -9,13 +9,15 @@ import (
 
 func HandleRequest() {
 	r := gin.Default()
-	r.GET("/", controllers.Hello)
 	r.POST("/login", controllers.LoginAcess)
 	grupo := r.Group("/index", middlewares.AuthMiddleware)
 	{
 		grupo.GET("/documentos", controllers.ExibeTodosDocumentos)
+		grupo.POST("/form", controllers.CriaNovoArquivo)
+		grupo.GET("/config", controllers.ExibeConfSistema)
+		grupo.POST("/config")
 		grupo.GET("/usuarios", controllers.ExibeTodosUsuarios)
-		grupo.GET("/sistema", controllers.ExibeConfSistema)
+		grupo.POST("/usarios/form")
 	}
 	r.Run()
 }
