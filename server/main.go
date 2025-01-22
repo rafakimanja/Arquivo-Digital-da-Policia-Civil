@@ -1,30 +1,15 @@
 package main
 
 import (
-	"adpc/src/models"
+	"adpc/src/database"
 	"adpc/src/routes"
-
-	"github.com/gin-gonic/gin"
+	"log"
 )
 
-func TesteAPI(c *gin.Context){
-	c.JSON(200, gin.H{
-		"message": "API do Servidor de Arquivos da Policia Civil",
-	})
-}
-
 func main(){
-	models.Documentos = []models.Documento{
-		{Nome: "IP 01.25", Ano: 2025, Categoria: "IP", Arquivo: "IP 01.25.pdf"},
-		{Nome: "TC 02.25", Ano: 2025, Categoria: "TC", Arquivo: "TC 02.25.pdf"},
+	_, err := database.ConectaDB()
+	if err != nil {
+		log.Fatal(err.Error())
 	}
-
-	models.Usuarios = []models.Usuario{
-		{Nome: "Admin", RG: "Admin", Senha: "Admin", Admin: true},
-		{Nome: "Tuilara", RG: "7033600411", Senha: "Senha@2024", Admin: false},
-	}
-
-	models.ConfSistema = models.Sistema{TipoArq: "PDF", UploadUnico: true}
-
 	routes.HandleRequest()
 }

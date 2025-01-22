@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"adpc/src/database"
 	"adpc/src/models"
 	"adpc/src/services"
 	"net/http"
@@ -24,6 +25,7 @@ func LoginAcess(c *gin.Context) {
 	}
 
 	var userLogin LoginUser
+	var user models.Usuario
 
 	if err := c.ShouldBindJSON(&userLogin); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -31,37 +33,37 @@ func LoginAcess(c *gin.Context) {
 		})
 	}
 
-	for _, user := range models.Usuarios {
-		if user.RG == userLogin.RG && user.Senha == userLogin.Senha {
+	database.DB.First(&user, userLogin)
 
-			err := godotenv.Load()
-			if err != nil {
-				c.JSON(http.StatusInternalServerError, gin.H{
-					"error": "Erro interno do servidor",
-				})
-				return
-			}
-
-			jwt := services.JwtToken{SigningKey: os.Getenv("JWT_KEY_SIGNING")}
-
-			token, err := jwt.CreateToken(user)
-
-			if err != nil {
-				c.JSON(http.StatusInternalServerError, gin.H{
-					"error": "Error generated token",
-				})
-				return
-			}
-
-			c.JSON(200, gin.H{
-				"message": "login sucefull",
-				"token":   token,
-			})
-			return
-		}
+	if user.ID == 0 {
+		c.JSON(401, gin.H{
+			"message": "User Not Found",
+		})
+		return
+	}
+	
+	err := godotenv.Load()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Erro interno do servidor",
+		})
+		return
 	}
 
-	c.JSON(401, gin.H{
-		"message": "User Not Found",
+	jwt := services.JwtToken{SigningKey: os.Getenv("JWT_KEY_SIGNING")}
+
+	token, err := jwt.CreateToken(user)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Error generated token",
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"message": "login sucefull",
+		"token":   token,
 	})
+
 }

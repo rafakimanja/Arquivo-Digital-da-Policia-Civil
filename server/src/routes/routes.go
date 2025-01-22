@@ -13,11 +13,15 @@ func HandleRequest() {
 	grupo := r.Group("/index", middlewares.AuthMiddleware)
 	{
 		grupo.GET("/documentos", controllers.ExibeTodosDocumentos)
+		grupo.GET("/documentos/:id", controllers.BaixaArquivo)
+		grupo.DELETE("/documentos/:id", controllers.DeletaArquivo)
 		grupo.POST("/form", controllers.CriaNovoArquivo)
 		grupo.GET("/config", controllers.ExibeConfSistema)
-		grupo.POST("/config")
+		grupo.POST("/config", controllers.SalvaConfSistema)
 		grupo.GET("/usuarios", controllers.ExibeTodosUsuarios)
-		grupo.POST("/usarios/form")
+		grupo.GET("/usuarios/:id", controllers.BuscaUsuario)
+		grupo.POST("/usuarios/form", controllers.CriaNovoUsuario)
+		grupo.DELETE("/usuarios/:id", controllers.DeletaUsuario)
 	}
 	r.Run()
 }
