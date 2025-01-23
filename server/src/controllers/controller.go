@@ -11,12 +11,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func Hello(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "Bem-Vindo ao Sistema Gerenciador de Arquivos da Policia Civil",
-	})
-}
-
 func LoginAcess(c *gin.Context) {
 
 	type LoginUser struct {
@@ -36,7 +30,7 @@ func LoginAcess(c *gin.Context) {
 	database.DB.First(&user, userLogin)
 
 	if user.ID == 0 {
-		c.JSON(401, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "User Not Found",
 		})
 		return
@@ -61,7 +55,7 @@ func LoginAcess(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"message": "login sucefull",
 		"token":   token,
 	})

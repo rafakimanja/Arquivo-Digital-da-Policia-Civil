@@ -9,7 +9,9 @@ import (
 )
 
 func ExibeConfSistema(c *gin.Context) {
-	c.JSON(200, models.ConfSistema)
+	var configuracoes models.Sistema
+	database.DB.First(&configuracoes)
+	c.JSON(http.StatusOK, configuracoes)
 }
 
 func SalvaConfSistema(c *gin.Context) {
