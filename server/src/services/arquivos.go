@@ -64,6 +64,15 @@ func (g *Gerenciador) moveArquivo(origem, destino string) bool {
 	}
 }
 
+// func (g *Gerenciador) excluiArquivo(path string) bool {
+// 	err := os.RemoveAll(path)
+// 	if err != nil {
+// 		return false
+// 	} else {
+// 		return true
+// 	}
+// }
+
 func (g *Gerenciador) criaCaminho(ano int, categoria string) string {
 	anoStr := strconv.Itoa(ano)
 	return fmt.Sprintf(g.diretorio + "/" + anoStr + "/" + categoria)
@@ -119,10 +128,40 @@ func (g *Gerenciador) AtualizarArquivo(arqOri models.Documento, arqDes models.Do
 	qtd, err := g.qtdArquivosDiretorio(diretorioOrigem)
 	if err != nil {
 		fmt.Println(err.Error())
+		return flag
 	}
 
 	if qtd == 0 {
 		g.excluiDiretorio(diretorioOrigem)
 	}
 	return flag
+}
+
+func (g *Gerenciador) DeletaArquivo(arquivo models.Documento, temp bool) bool {
+
+	pathDiretorio := g.criaCaminho(arquivo.Ano, arquivo.Categoria)
+	pathArquivo := pathDiretorio+"/"+arquivo.Arquivo
+	tempPath := "../arquivos/temp"
+
+	if !temp {
+		if g.criaDiretorio(tempPath) {
+			if g.moveArquivo(pathArquivo, tempPath+"/"+arquivo.Arquivo) {
+				return true
+			}
+		}
+		return false
+	} else {
+		if !g.excluiDiretorio(tempPath) {
+			g.moveArquivo(tempPath+"/"+arquivo.Arquivo, pathArquivo)
+			return false
+		} else {
+			qtd, err := g.qtdArquivosDiretorio(pathDiretorio)
+			if err == nil {
+				if qtd == 0 {
+					g.excluiDiretorio(pathDiretorio)
+				}
+			}
+			return true
+		}
+	}
 }

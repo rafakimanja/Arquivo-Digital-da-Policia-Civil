@@ -80,15 +80,38 @@ func BaixaArquivo(c *gin.Context){
 func DeletaArquivo(c *gin.Context){
 	var documento models.Documento
 	id := c.Params.ByName("id")
+	database.DB.First(&documento, id)
+
+	if documento.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error": "Arquivo nao encontrado!"})
+		return 
+	}
+
+	gerenciador := services.Construtor()
+
+	if !gerenciador.DeletaArquivo(documento, false) {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Erro ao deletar arquivo!"})
+		return
+	}
+
 	result := database.DB.Delete(&documento, id)
-	fmt.Println(id)
 	if result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Erro ao deletar arquivo!"})
-	} else {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Arquivo deletado com sucesso!"})
-		}
+		return
+	}
+
+	// if !gerenciador.DeletaArquivo(documento, true) {
+	// 	c.JSON(http.StatusInternalServerError, gin.H{
+	// 		"error": "Erro ao deletar arquivo!"})
+	// 	return
+	// }
+	
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Arquivo deletado com sucesso!"})
+	
 }
 
 func AtualizaArquivo(c *gin.Context){
