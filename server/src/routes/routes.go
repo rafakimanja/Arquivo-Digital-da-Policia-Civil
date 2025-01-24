@@ -25,5 +25,5 @@ func HandleRequest() {
 		grupo.PATCH("usuarios/:id", controllers.AtualizaUsuario)
 		grupo.DELETE("/usuarios/:id", controllers.DeletaUsuario)
 	}
-	r.Run()
+	r.Run(":5000")
 }

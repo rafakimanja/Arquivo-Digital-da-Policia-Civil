@@ -10,7 +10,7 @@ import (
 
 func ExibeConfSistema(c *gin.Context) {
 	var configuracoes models.Sistema
-	database.DB.First(&configuracoes)
+	database.DB.Last(&configuracoes)
 	c.JSON(http.StatusOK, configuracoes)
 }
 

@@ -103,11 +103,11 @@ func DeletaArquivo(c *gin.Context){
 		return
 	}
 
-	// if !gerenciador.DeletaArquivo(documento, true) {
-	// 	c.JSON(http.StatusInternalServerError, gin.H{
-	// 		"error": "Erro ao deletar arquivo!"})
-	// 	return
-	// }
+	if !gerenciador.DeletaArquivo(documento, true) {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Erro ao deletar arquivo!"})
+		return
+	}
 	
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Arquivo deletado com sucesso!"})
