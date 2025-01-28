@@ -3,12 +3,22 @@ package routes
 import (
 	"adpc/src/controllers"
 	"adpc/src/middlewares"
+	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func HandleRequest() {
 	r := gin.Default()
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:5173"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
+		AllowHeaders:     []string{"Origin", "Content-Disposition", "Content-Type", "Content-Transfer-Encoding", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length", "Authorization"},
+		AllowCredentials: false,
+		MaxAge:           12 * time.Hour,
+	}))
 	r.POST("/login", controllers.LoginAcess)
 	grupo := r.Group("/index", middlewares.AuthMiddleware)
 	{

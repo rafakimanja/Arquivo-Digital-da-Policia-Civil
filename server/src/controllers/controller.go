@@ -30,8 +30,8 @@ func LoginAcess(c *gin.Context) {
 	database.DB.First(&user, userLogin)
 
 	if user.ID == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "User Not Found",
+		c.JSON(http.StatusNotFound, gin.H{
+			"message": "Usuario inválido!",
 		})
 		return
 	}
@@ -39,7 +39,7 @@ func LoginAcess(c *gin.Context) {
 	err := godotenv.Load()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": "Erro interno do servidor",
+			"message": "Erro interno do servidor",
 		})
 		return
 	}
@@ -50,13 +50,13 @@ func LoginAcess(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": "Error generated token",
+			"message": "Erro ao gerar token",
 		})
 		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": "login sucefull",
+		"message": "login bem-sucedido!",
 		"token":   token,
 	})
 
