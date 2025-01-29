@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom'
 import excluir from '../../assets/delete_24.svg'
 import baixar from '../../assets/download_24dp.svg'
 import editar from '../../assets/edit_24dp.svg'
 import './Tabela.css'
 
-const Tabela = ({colunas, dados, isDoc}) => {
+const Tabela = ({colunas, dados, isDoc, handleDeleteUser}) => {
     return(
         <table id='documentos'>
             <colgroup>
@@ -36,8 +37,8 @@ const Tabela = ({colunas, dados, isDoc}) => {
             </thead>
             <tbody>
                 {
-                    dados.map((info, infoIndex) => (
-                        <tr key={infoIndex}>
+                    dados.map((info) => (
+                        <tr key={info.ID}>
                             {
                                 colunas.map((coluna) => (
                                     <td key={coluna.accessor}>{coluna.accessor == 'admin' ? info[coluna.accessor] ? 'sim' : 'não' : info[coluna.accessor]}</td>
@@ -51,12 +52,10 @@ const Tabela = ({colunas, dados, isDoc}) => {
                                                 <img src={baixar}/>
                                             </button>
                                         ) : (
-                                            <button id="button-editar">
-                                                <img src={editar}/>
-                                            </button>
+                                            <Link to={`${info.ID}/edit`}><button id="button-editar"><img src={editar}/></button></Link>
                                         )
                                     }
-                                    <button id='button-excluir'>
+                                    <button id='button-excluir' onClick={async () => await handleDeleteUser(info)}>
                                         <img src={excluir}/>
                                     </button>
                                 </div>

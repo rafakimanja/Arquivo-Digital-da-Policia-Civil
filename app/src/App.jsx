@@ -6,10 +6,11 @@ import RootLayout from './components/Routes/RootLayout'
 import FormArquivo from './components/Forms/FormArquivo'
 import ErrorPage from './components/Routes/ErrorPage'
 import Configuracoes from './components/Config/Configuracoes'
-import Usuarios from './components/Usuarios/Usuarios'
-import FormUsers from './components/Forms/FormUsers'
+import Usuarios, {deleteUsuario, getUsuarios} from './components/Usuarios/Usuarios'
+import FormUsers, {addUser} from './components/Forms/FormUsers'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { useState } from 'react'
+import UpdateUsers, { getUsuario, updateUsuario } from './components/Forms/UpdateUsers'
 
 function App() {
 
@@ -45,14 +46,9 @@ function App() {
         {
           path: "users",
           children: [
-            {
-              index: true, 
-              element: <Usuarios/>
-            },
-            {
-              path: "formUser",
-              element: <FormUsers/>
-            }
+            {index: true, element: <Usuarios/>, loader: getUsuarios, action: deleteUsuario},
+            {path: "new", element: <FormUsers/>, action: addUser },
+            {path: ':id/edit', element: <UpdateUsers/>, loader: getUsuario, action: updateUsuario}
           ]
         }
       ]

@@ -1,64 +1,37 @@
-import { useState } from 'react'
-import { Link, Form, redirect } from 'react-router-dom'
+import { Link, Form, redirect, useLoaderData } from 'react-router-dom'
 import './FormUsers.css'
 import axios from 'axios'
 
-const FormUsers = () => {
+const UpdateUsers = () => {
 
-    const [nomeUser, setNomeUser] = useState('')
-    const [rgUser, setRgUser] = useState('')
-    const [senhaUser, setSenhaUser] = useState('')
-    const [confirmSenhaUser, setConfirmSenhaUser] = useState('')
-    const [adminUser, setAdminUser] = useState(false)
-
-    const handleNomeChange = e => {
-        let nome = e.target.value
-        setNomeUser(nome.trim())
-    }
-
-    const handleRgChange = e => {
-        setRgUser(e.target.value)
-    }
-
-    const handleSenhaChange = e => {
-        setSenhaUser(e.target.value)
-    }
-
-    const handleSenhaConfirmChange = e => {
-        setConfirmSenhaUser(e.target.value)
-    }
-
-    const handleAdminChange = e => {
-        setAdminUser(e.target.checked)
-    }
+    const usuario = useLoaderData()
 
     return(
             <>
+                {console.log(usuario)}
                 <div className="background-form-user">
-                    <h1>Adicionar Usuario</h1>
-                    <Form method='post' onSubmit={() => {setNomeUser(''), setRgUser(''), setSenhaUser(''), setConfirmSenhaUser(''), setAdminUser(false)}}>
+                    <h1>Dados do Usuario</h1>
+                    <Form method='post'>
                         <div className="formulario-usuario">
                             <div className="input-form">
                                 <label htmlFor="">Nome do Usuario:</label>
-                                <input type="text" name="nome" id="" value={nomeUser} onChange={handleNomeChange} placeholder='Nome do usuario'/>
+                                <input type="text" name="nome" id="" defaultValue={usuario.nome ? usuario.nome: ''} placeholder='Nome do usuario'/>
                             </div>
                             <div className="input-form">
                                 <label htmlFor="">RG do Usuario:</label>
-                                <input type="text" name="rg" id="" value={rgUser} onChange={handleRgChange} placeholder='RG do usuario'/>
+                                <input type="text" name="rg" id="" defaultValue={usuario.rg ? usuario.rg: ''} placeholder='RG do usuario'/>
                             </div>
                             <div className="input-form">
                                 <label htmlFor="">Senha:</label>
-                                <input type="password" name="senha" id="" value={senhaUser} onChange={handleSenhaChange} placeholder='Digite a sennha'/>
+                                <input type="password" name="senha" id="" placeholder='Digite a sennha'/>
                             </div>
                             <div className="input-form">
                                 <label htmlFor="">Digite novamente a senha:</label>
-                                <input type="password" name="senha-repeat" id="" value={confirmSenhaUser} onChange={handleSenhaConfirmChange} placeholder='Digite a senha novamente'/>
+                                <input type="password" name="senha-repeat" id="" placeholder='Digite a senha novamente'/>
                             </div>
                             <div className="input-form" id='input-checkbox'>
                                 <label htmlFor="">Admin:</label>
-                                {
-                                    !adminUser ? <input type="checkbox" name="admin" id="" value={adminUser} onChange={handleAdminChange} /> : <input type="checkbox" name="admin" id="" value={adminUser} onChange={handleAdminChange} checked />
-                                }
+                                <input type="checkbox" name="admin" id="" defaultChecked={usuario.admin} />
                             </div>
                         </div>
                         <div className="buttons-form">
@@ -71,9 +44,23 @@ const FormUsers = () => {
     )   
 }
 
-export default FormUsers
+export default UpdateUsers
 
-export async function addUser({request}) {
+export async function getUsuario({params}) {
+    const url = `http://localhost:5000/index/usuarios/${params.id}`
+    const token = sessionStorage.getItem('authToken')
+    try {
+        const {data} = await axios.get(url, {headers: {
+            'Authorization': `Bearer ${token}`
+        }})
+        return data
+    } catch (error) {
+        alert(error)
+    }
+    return null
+}
+
+export async function updateUsuario({request, params}) {
     const data = await request.formData()
     const dadosForm = {
         nome: data.get('nome'),
@@ -93,13 +80,13 @@ export async function addUser({request}) {
             rg: dadosForm['rg'],
             admin: Boolean(dadosForm['admin']) 
         }
-        const response = await axios.post('http://localhost:5000/index/usuarios/form', data, {
+        const response = await axios.patch(`http://localhost:5000/index/usuarios/${params.id}`, data, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
         if (response.status === 200){
-            alert(`Usuario ${response.data.nome} adicionado com sucesso!`)
+            alert(`Usuario ${response.data.nome} alterado com sucesso!`)
         }
     } catch (error) {
         if (error.response) {

@@ -9,7 +9,7 @@ const SidebarMenu = ({userLog}) => {
                 <li className="icon-home"><Link to={"/index"} className="sidebar-link"><span>Home</span></Link></li>
                 <li className="icon-settings"><Link to={"/index/config"} className="sidebar-link"><span>Configurações</span></Link></li>
                 { 
-                    userLog.admin ? (
+                    userLog.superuser ? (
                         <>
                             <li className="icon-add"><Link to={"/index/form"} className="sidebar-link"><span>Adicionar</span></Link></li>
                             <li className="icon-search"><Link to={"/index/arquivos"} className="sidebar-link"><span>Pesquisar</span></Link></li>
