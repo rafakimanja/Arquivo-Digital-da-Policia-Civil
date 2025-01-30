@@ -1,5 +1,4 @@
 import axios from "axios"
-import { useLoaderData } from "react-router-dom"
 import FiltroUsers from "./Filtro/FiltroUsers"
 import Tabela from "../Tabela/Tabela"
 import './Usuarios.css'
@@ -7,7 +6,6 @@ import { useEffect, useState } from "react"
 
 const Usuarios = () => {
 
-    const usuariosBD = useLoaderData()
     const [usuarios, setUsuarios] = useState([])
 
     const handleDeleteUser = async (user) => {
@@ -37,7 +35,7 @@ const Usuarios = () => {
         <div className="background-usuarios">
             <FiltroUsers/>
            <div className="lista-usuarios">
-                <Tabela dados={usuarios} colunas={colunas} isDoc={false} handleDeleteUser={handleDeleteUser}/>
+                <Tabela dados={usuarios} colunas={colunas} isDoc={false} functionDelete={handleDeleteUser}/>
            </div>
         </div>
     )

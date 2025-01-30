@@ -104,9 +104,9 @@ export async function addUser({request}) {
     } catch (error) {
         if (error.response) {
             if (error.response.status === 404) {
-                Alert(`Erro 404: Não encontrado - ${JSON.stringify(error.response)}`);
+                alert(`Erro 404: Não encontrado - ${JSON.stringify(error.response)}`);
             } else {
-                Alert(`Erro no servidor: ${error.response.status}`);
+                alert(`Erro no servidor: ${error.response.status}`);
             }
         } else {
             alert(error)

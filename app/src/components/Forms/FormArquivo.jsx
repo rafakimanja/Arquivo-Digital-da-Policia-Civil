@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { Link, Form, redirect } from 'react-router-dom'
+import axios from 'axios'
 import './FormArquivo.css'
-import { Link } from 'react-router-dom'
 
 const FormArquivo = () => {
 
@@ -31,72 +32,137 @@ const FormArquivo = () => {
         }
     }
 
-    const handleFormArq = () => {
+    // const handleFormArq = async (e) => {
+    //     e.preventDefault()
 
-        const regex = new RegExp('^[0-9]{4}$')
+    //     const regex = new RegExp('^[0-9]{4}$')
 
-        if(nomeArq === ''){
-            alert('Informe o nome do arquivo!')
-            return
-        }
+    //     if(nomeArq === ''){
+    //         alert('Informe o nome do arquivo!')
+    //         setNomeArq('')
+    //         setAnoArq('')
+    //         setTipoArq('')
+    //         setArq(null)
+    //         return
+    //     }
 
-        if(!regex.test(anoArq)){
-            alert('Informe um ano valido')
-            return
-        }
+    //     if(!regex.test(anoArq)){
+    //         alert('Informe um ano valido')
+    //         setNomeArq('')
+    //         setAnoArq('')
+    //         setTipoArq('')
+    //         setArq(null)
+    //         return
+    //     }
 
-        if(tipoArq === ''){
-            alert('Escolha o tipo do arquivo!')
-            return
-        }
+    //     if(tipoArq === ''){
+    //         alert('Escolha o tipo do arquivo!')
+    //         setNomeArq('')
+    //         setAnoArq('')
+    //         setTipoArq('')
+    //         setArq(null)
+    //         return
+    //     }
 
-        if(arq == null){
-            alert('Nenhum arquivo foi selecionado!')
-            return
-        }
-    }
+    //     if(arq == null){
+    //         alert('Nenhum arquivo foi selecionado!')
+    //         setNomeArq('')
+    //         setAnoArq('')
+    //         setTipoArq('')
+    //         setArq(null)
+    //         return
+    //     }
+
+    //     await addArquivo(nomeArq, anoArq, tipoArq, arq)
+
+    //     setNomeArq('')
+    //     setAnoArq('')
+    //     setTipoArq('')
+    //     setArq(null)
+
+    //     redirect('/index/arquivos')
+    // }
 
     return(
     <>
         <div className="background-form-arq">
             <h1>Adiconar Arquivo</h1>
-            <div className="input-form">
-                <label htmlFor="">Nome do Arquivo:</label>
-                <input type="text" name="" id="" placeholder="Nome do Arquivo" value={nomeArq} onChange={handleNomeChange} />
-            </div>
-            <div className="input-form">
-                <label htmlFor="">Ano:</label>
-                <input type="text" name="" id="input-ano" placeholder='Informe o ano' value={anoArq} onChange={handleAnoChange} />
-            </div>
-            <div className="input-form">
-                <label htmlFor="">Tipo de Arquivo:</label>
-                <select name="" id="" value={tipoArq} onChange={handleTipoChange} >
-                    <option value="">Escolha</option>
-                    <option value="IP">IP</option>
-                    <option value="Tc">TC</option>
-                    <option value="PAI">PAI</option>
-                    <option value="Carta Precatoria">Cart Prec</option>
-                    <option value="Outro">Outro</option>
-                </select>
-            </div>
-            <div className="input-form">
-                <label htmlFor="arquivo" className='label-busca'>Buscar</label>
-                <input type="file" name="arquivo" id="arquivo" onChange={handleArqChange} />
-                <span>{arq ? arq.name : ''}</span>
-            </div>
-            <div className="buttons-form">
-                <button className="salvar" onClick={() => (
-                    handleFormArq(),
-                    setNomeArq(''),
-                    setAnoArq(''),
-                    setTipoArq(''),
-                    setArq(null)
-                    )}>Salvar</button>
-                <Link to={"/index"}><button className="cancelar">Cancelar</button></Link>
-            </div>
+            <Form method='post' encType='multipart/form-data' onSubmit={() => {setNomeArq(''), setAnoArq(''), setTipoArq(''), setArq(null)}}>
+                <div className="input-form">
+                    <label htmlFor="">Nome do Arquivo:</label>
+                    <input type="text" name="nome" id="" placeholder="Nome do Arquivo" value={nomeArq} onChange={handleNomeChange} />
+                </div>
+                <div className="input-form">
+                    <label htmlFor="">Ano:</label>
+                    <input type="text" name="ano" id="input-ano" placeholder='Informe o ano' value={anoArq} onChange={handleAnoChange} />
+                </div>
+                <div className="input-form">
+                    <label htmlFor="">Tipo de Arquivo:</label>
+                    <select name="categoria" id="" value={tipoArq} onChange={handleTipoChange} >
+                        <option value="">Escolha</option>
+                        <option value="IP">IP</option>
+                        <option value="Tc">TC</option>
+                        <option value="PAI">PAI</option>
+                        <option value="Carta Precatoria">Cart Prec</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div className="input-form">
+                    <label htmlFor="arquivo" className='label-busca'>Buscar</label>
+                    <input type="file" name="arquivo" id="arquivo" onChange={handleArqChange} />
+                    <span>{arq ? arq.name : ''}</span>
+                </div>
+                <div className="buttons-form">
+                    <button className="salvar" type='submit'>Salvar</button>
+                    <Link to={"/index"}><button className="cancelar">Cancelar</button></Link>
+                </div>
+            </Form>
         </div>
     </>
     )
 }
 
 export default FormArquivo
+
+export async function addArquivo({request}) {
+    const data = await request.formData()
+    const token = sessionStorage.getItem('authToken')
+
+    try {
+        checkForm(data.get('nome'), data.get('ano'), data.get('categoria'), data.get('arquivo'))
+        const response = await axios.post('http://localhost:5000/index/documentos', data, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        alert(response.data.message)
+        return redirect('/index/arquivos')
+    } catch(error) {
+        if(error.response){
+            alert(`Status Code: ${error.response.status} | ${error.response.data.erro}`)
+        } else {
+            alert(error)
+        }
+        return null
+    }
+}
+
+function checkForm(nome, ano, categoria, arquivo){
+    const regex = new RegExp('^[0-9]{4}$')
+
+    if(nome === ''){
+        throw new Error('Informe o nome do arquivo!')
+    }
+
+    if(!regex.test(ano)){
+        throw new Error('Informe um ano valido')
+    }
+
+    if(categoria === ''){
+        throw new Error('Informe uma categoria valida')
+    }
+
+    if(!arquivo || !arquivo instanceof File){
+        throw new Error('Selecione um arquivo valido!')
+    }
+}

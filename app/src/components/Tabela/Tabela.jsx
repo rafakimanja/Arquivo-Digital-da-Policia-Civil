@@ -4,7 +4,7 @@ import baixar from '../../assets/download_24dp.svg'
 import editar from '../../assets/edit_24dp.svg'
 import './Tabela.css'
 
-const Tabela = ({colunas, dados, isDoc, handleDeleteUser}) => {
+const Tabela = ({colunas, dados, isDoc, functionDelete}) => {
     return(
         <table id='documentos'>
             <colgroup>
@@ -55,7 +55,7 @@ const Tabela = ({colunas, dados, isDoc, handleDeleteUser}) => {
                                             <Link to={`${info.ID}/edit`}><button id="button-editar"><img src={editar}/></button></Link>
                                         )
                                     }
-                                    <button id='button-excluir' onClick={async () => await handleDeleteUser(info)}>
+                                    <button id='button-excluir' onClick={async () => await functionDelete(info)}>
                                         <img src={excluir}/>
                                     </button>
                                 </div>

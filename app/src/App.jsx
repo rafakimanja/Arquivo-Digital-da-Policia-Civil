@@ -1,9 +1,9 @@
 import './App.css'
 import FormLogin, {loginUser} from './components/Forms/FormLogin'
 import MainPage from './components/MainPage'
-import Arquivos from './components/Arquivos/Arquivos'
+import Arquivos, { deleteArquivo, getArquivos } from './components/Arquivos/Arquivos'
 import RootLayout from './components/Routes/RootLayout'
-import FormArquivo from './components/Forms/FormArquivo'
+import FormArquivo, { addArquivo } from './components/Forms/FormArquivo'
 import ErrorPage from './components/Routes/ErrorPage'
 import Configuracoes from './components/Config/Configuracoes'
 import Usuarios, {deleteUsuario, getUsuarios} from './components/Usuarios/Usuarios'
@@ -33,11 +33,14 @@ function App() {
         },
         {
           path: "arquivos",
-          element: <Arquivos/>
+          element: <Arquivos/>,
+          loader: getArquivos,
+          action: deleteArquivo
         },
         {
           path: "form",
-          element: <FormArquivo/>
+          element: <FormArquivo/>,
+          action: addArquivo
         },
         {
           path: "config",

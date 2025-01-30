@@ -24,7 +24,7 @@ func CriaNovoArquivo(c *gin.Context){
 	nome := c.PostForm("nome")
 	categoria := c.PostForm("categoria")
 	ano := c.PostForm("ano")
-	documento, err := c.FormFile("documento")
+	documento, err := c.FormFile("arquivo")
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"erro": "arquivo nao enviado!",
