@@ -11,7 +11,7 @@ const SidebarMenu = ({userLog}) => {
                 { 
                     userLog.superuser ? (
                         <>
-                            <li className="icon-add"><Link to={"/index/form"} className="sidebar-link"><span>Adicionar</span></Link></li>
+                            <li className="icon-add"><Link to={"/index/arquivos/new"} className="sidebar-link"><span>Adicionar</span></Link></li>
                             <li className="icon-search"><Link to={"/index/arquivos"} className="sidebar-link"><span>Pesquisar</span></Link></li>
                             <li className="icon-users"><Link to={"/index/users"} className="sidebar-link"><span>Usuários Cad.</span></Link></li> 
                         </>

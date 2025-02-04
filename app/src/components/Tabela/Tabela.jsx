@@ -51,10 +51,9 @@ const Tabela = ({colunas, dados, isDoc, functionDelete}) => {
                                             <button id='button-baixar'>
                                                 <img src={baixar}/>
                                             </button>
-                                        ) : (
-                                            <Link to={`${info.ID}/edit`}><button id="button-editar"><img src={editar}/></button></Link>
-                                        )
+                                        ) : ''
                                     }
+                                    <Link to={`${info.ID}/edit`}><button id="button-editar"><img src={editar}/></button></Link>
                                     <button id='button-excluir' onClick={async () => await functionDelete(info)}>
                                         <img src={excluir}/>
                                     </button>

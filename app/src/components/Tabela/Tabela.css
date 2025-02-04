@@ -35,8 +35,7 @@
 .botoes-tabela{
     display: flex;
     justify-content: space-evenly;
-    width: 80px;
-    margin-left: 25%;
+    width: 100%;
 }
 
 .botoes-tabela button {

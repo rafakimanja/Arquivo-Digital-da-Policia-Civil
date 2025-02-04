@@ -23,9 +23,10 @@ func HandleRequest() {
 	grupo := r.Group("/index", middlewares.AuthMiddleware)
 	{
 		grupo.GET("/documentos", controllers.ExibeTodosDocumentos)
-		grupo.GET("/documentos/:id", controllers.BaixaArquivo)
+		grupo.GET("/documentos/:id", controllers.BuscaArquivo)
+		grupo.GET("/documentos/donwload/:id", controllers.BaixaArquivo)
 		grupo.POST("/documentos", controllers.CriaNovoArquivo)
-		grupo.PUT("documentos/:id", controllers.AtualizaArquivo)
+		grupo.PUT("/documentos/:id", controllers.AtualizaArquivo)
 		grupo.DELETE("/documentos/:id", controllers.DeletaArquivo)
 		grupo.GET("/config", controllers.ExibeConfSistema)
 		grupo.POST("/config", controllers.SalvaConfSistema)

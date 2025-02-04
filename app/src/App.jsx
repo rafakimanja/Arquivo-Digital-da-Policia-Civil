@@ -11,6 +11,7 @@ import FormUsers, {addUser} from './components/Forms/FormUsers'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { useState } from 'react'
 import UpdateUsers, { getUsuario, updateUsuario } from './components/Forms/UpdateUsers'
+import UpdateArquivo, { getArquivo, updateArquivo } from './components/Forms/UpdateArquivo'
 
 function App() {
 
@@ -33,14 +34,11 @@ function App() {
         },
         {
           path: "arquivos",
-          element: <Arquivos/>,
-          loader: getArquivos,
-          action: deleteArquivo
-        },
-        {
-          path: "form",
-          element: <FormArquivo/>,
-          action: addArquivo
+          children: [
+            {index: true, element: <Arquivos/>, loader: getArquivos, action: deleteArquivo},
+            {path: "new", element: <FormArquivo/>, action: addArquivo},
+            {path: ":id/edit", element: <UpdateArquivo/>, loader: getArquivo, action: updateArquivo}
+          ]
         },
         {
           path: "config",

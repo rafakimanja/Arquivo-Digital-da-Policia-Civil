@@ -1,27 +1,12 @@
+import { Link, Form, redirect, useLoaderData } from 'react-router-dom'
 import { useState } from 'react'
-import { Link, Form, redirect } from 'react-router-dom'
 import axios from 'axios'
 import './FormArquivo.css'
 
-const FormArquivo = () => {
+const UpdateArquivo = () => {
 
-    const [nomeArq, setNomeArq] = useState('')
-    const [tipoArq, setTipoArq] = useState('')
-    const [anoArq, setAnoArq] = useState('')
+    const arquivo = useLoaderData()
     const [arq, setArq] = useState(null)
-
-    const handleNomeChange = e => {
-        let nome = e.target.value
-        setNomeArq(nome.trim())
-    }
-
-    const handleTipoChange = e => {
-        setTipoArq(e.target.value)
-    }
-
-    const handleAnoChange = e => {
-        setAnoArq(e.target.value)
-    }
 
     const handleArqChange = e => {
         let arquivo = e.target.files[0]
@@ -35,19 +20,19 @@ const FormArquivo = () => {
     return(
     <>
         <div className="background-form-arq">
-            <h1>Adiconar Arquivo</h1>
-            <Form method='post' encType='multipart/form-data' onSubmit={() => {setNomeArq(''), setAnoArq(''), setTipoArq(''), setArq(null)}}>
+            <h1>Dados do Arquivo</h1>
+            <Form method='post' encType='multipart/form-data'>
                 <div className="input-form">
                     <label htmlFor="">Nome do Arquivo:</label>
-                    <input type="text" name="nome" id="" placeholder="Nome do Arquivo" value={nomeArq} onChange={handleNomeChange} />
+                    <input type="text" name="nome" id="" placeholder="Nome do Arquivo" defaultValue={arquivo.nome ? arquivo.nome : ''}/>
                 </div>
                 <div className="input-form">
                     <label htmlFor="">Ano:</label>
-                    <input type="text" name="ano" id="input-ano" placeholder='Informe o ano' value={anoArq} onChange={handleAnoChange} />
+                    <input type="text" name="ano" id="input-ano" placeholder='Informe o ano' defaultValue={arquivo.ano ? arquivo.ano : ''} />
                 </div>
                 <div className="input-form">
                     <label htmlFor="">Tipo de Arquivo:</label>
-                    <select name="categoria" id="" value={tipoArq} onChange={handleTipoChange} >
+                    <select name="categoria" id="" defaultValue={arquivo.categoria ? arquivo.categoria : ''} >
                         <option value="">Escolha</option>
                         <option value="IP">IP</option>
                         <option value="Tc">TC</option>
@@ -58,12 +43,12 @@ const FormArquivo = () => {
                 </div>
                 <div className="input-form">
                     <label htmlFor="arquivo" className='label-busca'>Buscar</label>
-                    <input type="file" name="arquivo" id="arquivo" onChange={handleArqChange} />
-                    <span>{arq ? arq.name : ''}</span>
+                    <input type="file" name="arquivo" id="arquivo" onChange={handleArqChange}/>
+                    <span defaultValue={arquivo.arquivo ? arquivo.arquivo : ''}>{arq ? arq.name : ''}</span>
                 </div>
                 <div className="buttons-form">
                     <button className="salvar" type='submit'>Salvar</button>
-                    <Link to={"/index"}><button className="cancelar">Cancelar</button></Link>
+                    <Link to={"/index/arquivos"}><button className="cancelar">Cancelar</button></Link>
                 </div>
             </Form>
         </div>
@@ -71,22 +56,29 @@ const FormArquivo = () => {
     )
 }
 
-export default FormArquivo
+export default UpdateArquivo
 
-export async function addArquivo({request}) {
+export async function getArquivo({params}) {
+    const url = `http://localhost:5000/index/documentos/${params.id}`
+    const token = sessionStorage.getItem('authToken')
+    try {
+        const {data} = await axios.get(url, {headers: {
+            'Authorization': `Bearer ${token}`
+        }})
+        return data
+    } catch (error) {
+        alert(error)
+    }
+    return null
+}
+
+export async function updateArquivo({request, params}) {
     const data = await request.formData()
     const token = sessionStorage.getItem('authToken')
 
     try {
         checkForm(data.get('nome'), data.get('ano'), data.get('categoria'), data.get('arquivo'))
-        const obj = {
-            nome: data.get('nome'),
-            ano: data.get('ano'),
-            categoria: data.get('categoria'),
-            arquivo: data.get('arquivo')
-        }
-        console.table(obj)
-        const response = await axios.post('http://localhost:5000/index/documentos', data, {
+        const response = await axios.put(`http://localhost:5000/index/documentos/${params.id}`, data, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -94,6 +86,7 @@ export async function addArquivo({request}) {
         alert(response.data.message)
         return redirect('/index/arquivos')
     } catch(error) {
+        console.log(error)
         if(error.response){
             alert(`Status Code: ${error.response.status} | ${error.response.data.erro}`)
         } else {
@@ -118,7 +111,7 @@ function checkForm(nome, ano, categoria, arquivo){
         throw new Error('Informe uma categoria valida')
     }
 
-    if(!arquivo || !arquivo instanceof File){
+    if (!(arquivo instanceof File)){
         throw new Error('Selecione um arquivo valido!')
     }
 }

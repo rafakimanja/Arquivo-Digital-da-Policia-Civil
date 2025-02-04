@@ -15,10 +15,6 @@ func Construtor() Gerenciador {
 	return Gerenciador{diretorio: "../arquivos"}
 }
 
-func (g *Gerenciador) GetDiretorio() string {
-	return g.diretorio
-}
-
 func (g *Gerenciador) criaDiretorio(path string) bool {
 	err := os.MkdirAll(path, 0755)
 	if err != nil {
@@ -63,15 +59,6 @@ func (g *Gerenciador) moveArquivo(origem, destino string) bool {
 		return true
 	}
 }
-
-// func (g *Gerenciador) excluiArquivo(path string) bool {
-// 	err := os.RemoveAll(path)
-// 	if err != nil {
-// 		return false
-// 	} else {
-// 		return true
-// 	}
-// }
 
 func (g *Gerenciador) criaCaminho(ano int, categoria string) string {
 	anoStr := strconv.Itoa(ano)
