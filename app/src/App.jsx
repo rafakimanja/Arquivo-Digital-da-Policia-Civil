@@ -5,7 +5,7 @@ import Arquivos, { deleteArquivo, getArquivos } from './components/Arquivos/Arqu
 import RootLayout from './components/Routes/RootLayout'
 import FormArquivo, { addArquivo } from './components/Forms/FormArquivo'
 import ErrorPage from './components/Routes/ErrorPage'
-import Configuracoes from './components/Config/Configuracoes'
+import Configuracoes, { addConfig, getConfig } from './components/Config/Configuracoes'
 import Usuarios, {deleteUsuario, getUsuarios} from './components/Usuarios/Usuarios'
 import FormUsers, {addUser} from './components/Forms/FormUsers'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -42,7 +42,9 @@ function App() {
         },
         {
           path: "config",
-          element: <Configuracoes/>
+          element: <Configuracoes/>,
+          loader: getConfig,
+          action: addConfig
         },
         {
           path: "users",

@@ -118,7 +118,7 @@ function checkForm(nome, ano, categoria, arquivo){
         throw new Error('Informe uma categoria valida')
     }
 
-    if(!arquivo || !arquivo instanceof File){
+    if(!arquivo || !(arquivo instanceof File)){
         throw new Error('Selecione um arquivo valido!')
     }
 }
