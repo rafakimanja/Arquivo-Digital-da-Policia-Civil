@@ -85,7 +85,6 @@ export async function addArquivo({request}) {
             categoria: data.get('categoria'),
             arquivo: data.get('arquivo')
         }
-        console.table(obj)
         const response = await axios.post('http://localhost:5000/index/documentos', data, {
             headers: {
                 'Authorization': `Bearer ${token}`

@@ -2,7 +2,7 @@ import './Filtro.css'
 import { useState } from 'react'
 import lupa from '../../../assets/search_24dp.svg'
 
-const Filtro = () => {
+const Filtro = ({dados, setDados}) => {
 
     const [categoria, setCategoria] = useState('')
     const [ano, setAno] = useState('')
@@ -21,7 +21,7 @@ const Filtro = () => {
         setNome(nome.trim())
     }
 
-    const handleFltroArq = () => {
+    const handleFltroArq = () => { 
 
         if(ano != ''){
             const regex = new RegExp('^[0-9]{4}$')
@@ -30,12 +30,21 @@ const Filtro = () => {
                 alert('Informe um ano valido')
                 return
             }
+
+            
         }
 
-        const filtro = {}
-        filtro.nome = nome
-        filtro.ano = ano
-        filtro.categoria = categoria
+        const filtro = {nome, ano, categoria}
+
+       const dadosFiltrados = dados.filter((item) => {
+            const filtroCategoria = filtro.categoria === "" || item.categoria.toLowerCase().includes(filtro.categoria.toLowerCase());
+            const filtroAno = filtro.ano === "" || item.ano.toString().includes(filtro.ano);
+            const filtroNome = filtro.nome === "" || item.nome.toLowerCase().includes(filtro.nome.toLowerCase());
+
+            return filtroCategoria && filtroAno && filtroNome;
+       })
+
+        setDados(dadosFiltrados)
     }
 
     return(

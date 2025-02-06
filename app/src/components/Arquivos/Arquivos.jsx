@@ -37,7 +37,7 @@ const Arquivos = () => {
 
     return(
         <div className='background-arquivos'>
-            <Filtro/>
+            <Filtro dados={dados} setDados={setDados} />
             <div className="tabela">
                 <Tabela colunas={colunas} dados={dados} isDoc={true} functionDelete={handleDeleteArquivo} />
             </div>

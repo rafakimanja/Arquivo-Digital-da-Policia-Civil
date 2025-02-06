@@ -33,7 +33,7 @@ const Usuarios = () => {
 
     return(
         <div className="background-usuarios">
-            <FiltroUsers/>
+            <FiltroUsers usuarios={usuarios} setUsuarios={setUsuarios} />
            <div className="lista-usuarios">
                 <Tabela dados={usuarios} colunas={colunas} isDoc={false} functionDelete={handleDeleteUser}/>
            </div>
