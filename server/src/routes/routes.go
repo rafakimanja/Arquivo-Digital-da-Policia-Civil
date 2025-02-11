@@ -14,8 +14,8 @@ func HandleRequest() {
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:5173"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
-		AllowHeaders:     []string{"Origin", "Content-Disposition", "Content-Type", "Content-Transfer-Encoding", "Authorization"},
-		ExposeHeaders:    []string{"Content-Length", "Authorization"},
+		AllowHeaders:     []string{"*"},
+		ExposeHeaders:    []string{"Content-Disposition", "Content-Length", "Authorization"},
 		AllowCredentials: false,
 		MaxAge:           12 * time.Hour,
 	}))

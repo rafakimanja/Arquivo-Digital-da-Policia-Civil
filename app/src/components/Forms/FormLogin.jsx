@@ -42,7 +42,7 @@ const FormLogin = ({setUserLog}) => {
                 <img src={logoPolicia} alt="" />
             </div>
             <div className='div-form'>
-                <h2>Login</h2>
+                <h2 className='titulo-form' >Login</h2>
                 <Form method='post' onSubmit={() => {setInputRG(''), setInputSenha('')}}>
                     <div className='input-group'>
                         <input type="text" name="rg" id="" value={inputRG} onChange={handleInputRGChange}  required/>

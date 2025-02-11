@@ -1,0 +1,26 @@
+.background-filtro-user{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: slategray;
+    height: 30px;
+    width: fit-content;
+    gap: 10px;
+    padding: 7px;
+}
+
+.background-filtro-user p{
+    font-weight: bold;
+    color: white;
+}
+
+.background-filtro-user button{
+    background-color: #ffffff8e;
+    color: black;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border-style: none;
+    cursor: pointer;
+}

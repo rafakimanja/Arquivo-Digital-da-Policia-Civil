@@ -84,11 +84,9 @@ func BaixaArquivo(c *gin.Context){
 	path := "../arquivos/"+fmt.Sprint(documento.Ano)+"/"+documento.Categoria+"/"+documento.Arquivo
 
 	c.Header("Content-Disposition", "attachment; filename="+documento.Arquivo)
-	c.Header("Content-Type", "application/octet-stream")
+	c.Header("Content-Type", "application/pdf")
 	c.Header("Content-Transfer-Encoding", "binary")
-	c.JSON(http.StatusOK, gin.H{
-		"arquivo": path,
-	})
+	c.File(path)
 }
 
 func DeletaArquivo(c *gin.Context){

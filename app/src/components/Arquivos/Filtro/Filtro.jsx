@@ -2,7 +2,7 @@ import './Filtro.css'
 import { useState } from 'react'
 import lupa from '../../../assets/search_24dp.svg'
 
-const Filtro = ({dados, setDados}) => {
+const Filtro = ({dados, setDados, handleAddFiltro}) => {
 
     const [categoria, setCategoria] = useState('')
     const [ano, setAno] = useState('')
@@ -30,21 +30,28 @@ const Filtro = ({dados, setDados}) => {
                 alert('Informe um ano valido')
                 return
             }
-
-            
         }
 
-        const filtro = {nome, ano, categoria}
+        const objFiltro = {}
+        const filtros_ativos = []
 
-       const dadosFiltrados = dados.filter((item) => {
-            const filtroCategoria = filtro.categoria === "" || item.categoria.toLowerCase().includes(filtro.categoria.toLowerCase());
-            const filtroAno = filtro.ano === "" || item.ano.toString().includes(filtro.ano);
-            const filtroNome = filtro.nome === "" || item.nome.toLowerCase().includes(filtro.nome.toLowerCase());
+        if(nome) {
+            objFiltro['nome'] = nome
+            filtros_ativos.push('nome')
+        }
+        if(categoria) {
+            objFiltro['categoria'] = categoria
+            filtros_ativos.push('categoria')
+        }
+        if(ano) {
+            objFiltro['ano'] = ano
+            filtros_ativos.push('ano')
+        }
 
-            return filtroCategoria && filtroAno && filtroNome;
-       })
+        objFiltro['filtros_ativos'] = filtros_ativos
 
-        setDados(dadosFiltrados)
+        handleAddFiltro(objFiltro)
+
     }
 
     return(

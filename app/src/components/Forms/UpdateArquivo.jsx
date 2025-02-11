@@ -35,7 +35,7 @@ const UpdateArquivo = () => {
                     <select name="categoria" id="" defaultValue={arquivo.categoria ? arquivo.categoria : ''} >
                         <option value="">Escolha</option>
                         <option value="IP">IP</option>
-                        <option value="Tc">TC</option>
+                        <option value="TC">TC</option>
                         <option value="PAI">PAI</option>
                         <option value="Carta Precatoria">Cart Prec</option>
                         <option value="Outro">Outro</option>
