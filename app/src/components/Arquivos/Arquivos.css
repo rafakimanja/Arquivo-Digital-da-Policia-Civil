@@ -5,7 +5,7 @@
     flex-direction: column;
     align-items: center;
     width: 1200px;
-    height: 650px;
+    height: fit-content;
 }
 
 .background-arquivos h1{
@@ -19,6 +19,7 @@
 .tabela{
     width: 90%;
     margin-top: 50px;
+    margin-bottom: 30px;
 }
 
 .filtros{

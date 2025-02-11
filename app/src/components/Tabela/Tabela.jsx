@@ -3,9 +3,14 @@ import JsFileDownloader from 'js-file-downloader'
 import excluir from '../../assets/delete_24.svg'
 import baixar from '../../assets/download_24dp.svg'
 import editar from '../../assets/edit_24dp.svg'
+import Paginacao from './Paginacao'
 import './Tabela.css'
+import { useEffect, useState } from 'react'
 
 const Tabela = ({colunas, dados, isDoc, functionDelete}) => {
+
+    const [pageNumber, setPageNumber] = useState(1)
+    const pageSize = 10
 
     const handleDownload = (id, nome) => {
         console.log(nome)
@@ -48,6 +53,12 @@ const Tabela = ({colunas, dados, isDoc, functionDelete}) => {
         }
     }
 
+    const totalPages = Math.ceil(dados.length / pageSize)
+    
+    const startIndex = (pageNumber - 1) * pageSize
+    const endIndex = startIndex + pageSize
+    const itemsOnPage = dados.slice(startIndex, endIndex)
+
     return(
         <table id='documentos'>
             <colgroup>
@@ -81,7 +92,7 @@ const Tabela = ({colunas, dados, isDoc, functionDelete}) => {
             </thead>
             <tbody>
                 {
-                    dados.map((info) => (
+                    itemsOnPage.map((info) => (
                         <tr key={info.ID}>
                             {
                                 colunas.map((coluna) => (
@@ -107,6 +118,9 @@ const Tabela = ({colunas, dados, isDoc, functionDelete}) => {
                     ))
                 }                
             </tbody>
+            {
+                dados.length > 10 ? <Paginacao totalPages={totalPages} pageNumber={pageNumber} setPageNumber={setPageNumber}  /> : ''
+            }
         </table>
     )
 }

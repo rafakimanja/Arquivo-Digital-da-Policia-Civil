@@ -24,9 +24,8 @@ const Arquivos = () => {
     }, [])
 
     useEffect(() => {
-        
-        if(filtro){
 
+        if(filtro){
             let dadosFiltrados = [...dadosOriginais]
         
             if(filtro.categoria){
@@ -107,7 +106,8 @@ const Arquivos = () => {
                         dados.length > 0 ? 
                         <div className="tabela">
                             <Tabela colunas={colunas} dados={dados} isDoc={true} functionDelete={handleDeleteArquivo}/>
-                        </div> : <p style={{marginTop: '20px', fontWeight: 'bold', fontSize: '18pt'}} >Nenhum arquivo foi encontrado!</p>
+                        </div> 
+                        : <p style={{marginTop: '20px', fontWeight: 'bold', fontSize: '18pt'}} >Nenhum arquivo foi encontrado!</p>
                     }
                 </> : <h1>Nenhum documento arquivado!</h1>
             }
