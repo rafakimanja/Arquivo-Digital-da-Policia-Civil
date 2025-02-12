@@ -16,6 +16,7 @@ import UpdateArquivo, { getArquivo, updateArquivo } from './components/Forms/Upd
 function App() {
 
   const [userLog, setUserLog] = useState(null)
+  const [settingsSistema, setSettingsSistema] = useState([])
 
   const router = createBrowserRouter([
     {
@@ -35,14 +36,14 @@ function App() {
         {
           path: "arquivos",
           children: [
-            {index: true, element: <Arquivos/>, loader: getArquivos, action: deleteArquivo},
-            {path: "new", element: <FormArquivo/>, action: addArquivo},
+            {index: true, element: <Arquivos />, loader: getArquivos, action: deleteArquivo},
+            {path: "new", element: <FormArquivo settingsSistema={settingsSistema} />, action: addArquivo},
             {path: ":id/edit", element: <UpdateArquivo/>, loader: getArquivo, action: updateArquivo}
           ]
         },
         {
           path: "config",
-          element: <Configuracoes/>,
+          element: <Configuracoes setSettingsSistema={setSettingsSistema} />,
           loader: getConfig,
           action: addConfig
         },

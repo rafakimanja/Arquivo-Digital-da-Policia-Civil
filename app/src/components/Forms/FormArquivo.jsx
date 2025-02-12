@@ -3,7 +3,7 @@ import { Link, Form, redirect } from 'react-router-dom'
 import axios from 'axios'
 import './FormArquivo.css'
 
-const FormArquivo = () => {
+const FormArquivo = ({settingsSistema}) => {
 
     const [nomeArq, setNomeArq] = useState('')
     const [tipoArq, setTipoArq] = useState('')
@@ -25,9 +25,13 @@ const FormArquivo = () => {
 
     const handleArqChange = e => {
         let arquivo = e.target.files[0]
+        let extensao = arquivo.name.split('.').pop().toLowerCase()
         if(arquivo.size > 10_485_760){
             alert('Tamanho de maximo de arquivo ultrapassado! Limite de 10Mb')
-        }else{
+        } else if(extensao !== settingsSistema.tipo_arq.toLowerCase()){
+            alert(`Arquivo ${extensao} e invalido! Somente arquivos do tipo ${settingsSistema.tipo_arq}`)
+        }
+        else{
             setArq(arquivo)
         }
     }

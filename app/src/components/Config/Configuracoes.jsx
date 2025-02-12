@@ -2,9 +2,10 @@ import { Form, redirect, useLoaderData } from 'react-router-dom'
 import axios from 'axios'
 import './Configuracoes.css'
 
-const Configuracoes = () => {
+const Configuracoes = ({setSettingsSistema}) => {
 
     const config = useLoaderData()
+    setSettingsSistema(config)
 
     return(
         <>
