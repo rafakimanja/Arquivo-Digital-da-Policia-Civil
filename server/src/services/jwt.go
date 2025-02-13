@@ -18,8 +18,9 @@ func (j *JwtToken) CreateToken(usuario models.Usuario) (string, error) {
 		"sub":       usuario.RG,
 		"name":      usuario.Nome,
 		"superuser": usuario.Admin,
-		"exp": time.Now().Add(time.Minute * 15).Unix(),
+		"exp": time.Now().Add(time.Minute * 90).Unix(),
 	}
+	
 	//generate token
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 

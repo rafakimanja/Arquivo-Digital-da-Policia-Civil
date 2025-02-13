@@ -12,7 +12,11 @@ type Gerenciador struct {
 }
 
 func Construtor() Gerenciador {
-	return Gerenciador{diretorio: "../arquivos"}
+	return Gerenciador{diretorio: "/arquivos"}
+}
+
+func (g *Gerenciador) GetDiretorio() string {
+	return g.diretorio
 }
 
 func (g *Gerenciador) criaDiretorio(path string) bool {
@@ -128,7 +132,7 @@ func (g *Gerenciador) DeletaArquivo(arquivo models.Documento, temp bool) bool {
 
 	pathDiretorio := g.criaCaminho(arquivo.Ano, arquivo.Categoria)
 	pathArquivo := pathDiretorio+"/"+arquivo.Arquivo
-	tempPath := "../arquivos/temp"
+	tempPath :=  g.GetDiretorio()+"/temp"
 
 	if !temp {
 		if g.criaDiretorio(tempPath) {
