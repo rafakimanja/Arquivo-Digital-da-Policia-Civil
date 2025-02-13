@@ -2,7 +2,7 @@ import Filtro from './Filtro/Filtro'
 import Tabela from '../Tabela/Tabela'
 import FiltrosAtivo from './Filtro/FiltrosAtivos'
 import './Arquivos.css'
-import axios from 'axios'
+import axios from '../../services/BaseService'
 import { useEffect, useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
 
@@ -109,7 +109,7 @@ const Arquivos = () => {
                         </div> 
                         : <p style={{marginTop: '20px', fontWeight: 'bold', fontSize: '18pt'}} >Nenhum arquivo foi encontrado!</p>
                     }
-                </> : <h1>Nenhum documento arquivado!</h1>
+                </> : <h1 className='titulo-arquivos' >Nenhum documento arquivado!</h1>
             }
         </div>
     )
@@ -119,20 +119,14 @@ export default Arquivos
 
 export async function getArquivos() {
     const url = 'http://localhost:5000/index/documentos'
-    const token = sessionStorage.getItem('authToken')
-    const { data } = await axios.get(url, {headers: {
-        'Authorization': `Bearer ${token}`
-    }})
+    const { data } = await axios.get(url)
     return data
 }
 
 export async function deleteArquivo(id) {
     const url = `http://localhost:5000/index/documentos/${id}`
-    const token = sessionStorage.getItem('authToken')
     try {
-        const response = await axios.delete(url, {headers: {
-            'Authorization': `Bearer ${token}`
-        }})
+        const response = await axios.delete(url)
         alert(response.data.message)
         return true
     } catch (error) {

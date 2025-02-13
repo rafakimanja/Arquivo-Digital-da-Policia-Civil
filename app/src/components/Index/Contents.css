@@ -15,6 +15,11 @@
     height: 700px;
 }
 
+.spaces a:link, .spaces a:visited{
+    text-decoration: none;
+    color: black;
+}
+
 .top-containers{
     width: 87%;
     display: flex;

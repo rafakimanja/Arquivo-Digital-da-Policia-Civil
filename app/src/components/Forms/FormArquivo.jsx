@@ -26,14 +26,19 @@ const FormArquivo = ({settingsSistema}) => {
     const handleArqChange = e => {
         let arquivo = e.target.files[0]
         let extensao = arquivo.name.split('.').pop().toLowerCase()
+        let flag = true
+
         if(arquivo.size > 10_485_760){
             alert('Tamanho de maximo de arquivo ultrapassado! Limite de 10Mb')
-        } else if(extensao !== settingsSistema.tipo_arq.toLowerCase()){
+            flag = false
+        }
+        
+        if(extensao !== settingsSistema.tipo_arq.toLowerCase()){
             alert(`Arquivo ${extensao} e invalido! Somente arquivos do tipo ${settingsSistema.tipo_arq}`)
+            flag = false
         }
-        else{
-            setArq(arquivo)
-        }
+
+        if(flag) setArq(arquivo)
     }
 
     return(
@@ -108,12 +113,13 @@ export async function addArquivo({request}) {
 
 function checkForm(nome, ano, categoria, arquivo){
     const regex = new RegExp('^[0-9]{4}$')
+    const data = new Date()
 
     if(nome === ''){
         throw new Error('Informe o nome do arquivo!')
     }
 
-    if(!regex.test(ano)){
+    if(!regex.test(ano) || ano > data.getFullYear()){
         throw new Error('Informe um ano valido')
     }
 

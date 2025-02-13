@@ -17,7 +17,7 @@ const SidebarMenu = ({userLog}) => {
                         </>
                     ) : null
                 }
-                <li className="icon-exit" id="exit"><Link to={"/"} className="sidebar-link"><span>Sair</span></Link></li>
+                <li className="icon-exit" id="exit"><Link to={"/"} className="sidebar-link" onClick={() => {sessionStorage.removeItem('authToken')}} ><span>Sair</span></Link></li>
             </ul>
         </nav>
         </>
