@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
 import { useEffect, useState } from 'react'
-import { Form, useActionData, useNavigate } from 'react-router-dom'
+import { Form, Link, useActionData, useNavigate } from 'react-router-dom'
 import logoPolicia from '../../assets/Logo-PC.png'
 import olhoVisivel from '../../assets/olho-aberto2.svg'
 import olhoInvisivel from '../../assets/olho-fechado.svg'
@@ -45,18 +45,18 @@ const FormLogin = ({setUserLog}) => {
                 <h2 className='titulo-form' >Login</h2>
                 <Form method='post' onSubmit={() => {setInputRG(''), setInputSenha('')}}>
                     <div className='input-group'>
-                        <input type="text" name="rg" id="" value={inputRG} onChange={handleInputRGChange}  required/>
+                        <input type="text" name="rg" id="" value={inputRG} onChange={handleInputRGChange} required />
                         <label htmlFor="">RG</label>
                     </div>
                     <div className='input-group'>
-                        <input type={eyerVisibel ? "text" : "password"} name="senha" id="input-senha" value={inputSenha} onChange={handleInputSenhaChange}  required />
+                        <input type={eyerVisibel ? "text" : "password"} name="senha" id="input-senha" value={inputSenha} onChange={handleInputSenhaChange} required />
                         <label htmlFor="">SENHA</label>
                         <img src={eyerVisibel ? olhoVisivel : olhoInvisivel} alt="" className='eye-icon' onClick={toggleEye} />
                     </div>
-                    <a href="#">Esqueceu a Senha?</a>
+                    <Link to={"/recPassword"} >Esqueceu a Senha?</Link>
                     <div className='button-group'>
                         <button type="submit">ENTRAR</button>
-                        <button id='cadastro'>CADASTRAR</button>
+                        <Link to={"/userRegister"}><button id='cadastro'>CADASTRAR</button></Link>
                     </div>
                 </Form>
             </div>
@@ -81,6 +81,6 @@ export async function loginUser({request}){
         if(error.response.status == 404){
             alert(error.response.data.message)
         }
-        return {error: error}
+        return error
     }
 }

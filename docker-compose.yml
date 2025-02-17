@@ -1,0 +1,72 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: database-adpc
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - adpc-app
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin-adpc
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - adpc-app
+
+  api:
+    image: server/adpc:1.4
+    container_name: api-adpc
+    ports:
+      - "5000:5000"
+    networks:
+      - adpc-app
+    depends_on:
+      - postgres
+    volumes:
+      - ./server-volume:/arquivos
+  
+  app:
+    image: app/adpc:1.0
+    container_name: app-adpc
+    depends_on:
+      - api
+    volumes:
+      - app-adpc:/var/www/html
+  
+  nginx:
+    image: nginx/adpc:1.2
+    container_name: nginx-adpc
+    ports:
+      - 80:80
+    volumes:
+      - app-adpc:/var/www/html
+    depends_on:
+      - postgres
+      - api
+      - app
+
+
+volumes:
+  postgres_data:
+  app-adpc:
+
+networks:
+  adpc-app:
+    driver: bridge
+
+

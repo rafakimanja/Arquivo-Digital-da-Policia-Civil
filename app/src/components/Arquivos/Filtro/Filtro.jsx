@@ -2,7 +2,7 @@ import './Filtro.css'
 import { useState } from 'react'
 import lupa from '../../../assets/search_24dp.svg'
 
-const Filtro = ({dados, setDados, handleAddFiltro}) => {
+const Filtro = ({handleAddFiltro}) => {
 
     const [categoria, setCategoria] = useState('')
     const [ano, setAno] = useState('')

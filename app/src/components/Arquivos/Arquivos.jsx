@@ -93,7 +93,7 @@ const Arquivos = () => {
             {
                 dadosOriginais.length > 0 ?
                 <>
-                    <Filtro dados={dados} setDados={setDados} handleAddFiltro={handleAddFiltro} />
+                    <Filtro handleAddFiltro={handleAddFiltro} />
                     
                     { 
                         filtro ? 

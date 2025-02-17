@@ -12,6 +12,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { useState } from 'react'
 import UpdateUsers, { getUsuario, updateUsuario } from './components/Forms/UpdateUsers'
 import UpdateArquivo, { getArquivo, updateArquivo } from './components/Forms/UpdateArquivo'
+import Avisos from './components/Avisos/Avisos'
 
 function App() {
 
@@ -23,6 +24,14 @@ function App() {
       path: "/",
       element: <FormLogin setUserLog={setUserLog}/>,
       action:  loginUser
+    },
+    {
+      path: "/recPassword",
+      element: <Avisos cadastro={false} />,
+    },
+    {
+      path: "/userRegister",
+      element: <Avisos cadastro={true} />,
     },
     {
       path: "/index",
