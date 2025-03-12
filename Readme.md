@@ -1,6 +1,6 @@
 # Arquivo Digital da Policia Civil
 
-Esse e um projeto open-source desenvolvido com o intuito de ser um gerenciado de arquivos digitais, desenvolvido para a delegacia de policia civil de Osorio/RS
+Esse e um projeto open-source desenvolvido com o intuito de ser um gerenciador de arquivos digitais, desenvolvido para a delegacia de policia civil de Osorio/RS
 
 
 ## Uso
